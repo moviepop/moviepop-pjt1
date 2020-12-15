@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+  <script src="https://kit.fontawesome.com/b8321a1a03.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <!--최종 글씨체-->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Nanum+Gothic:wght@400;700;800&family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+  <title>
+    {% block title %}
+    {% endblock title %}
+  </title>
+  <style>
+    .base-brownblack{
+      color: rgba(17, 5, 2, 1);
+    }
+
+    .base-darkcrimson{
+      color: rgba(200, 25, 18, 1);
+    }
+
+    .base-brightcrimson{
+      color: rgba(246, 75, 60, 1);
+    }
+
+    .base-ivory{
+      color: rgba(253, 186, 154, 1);
+    }
+
+    .base-logo-font{
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-style: italic;
+    }
+
+    .base-title-font{
+      font-family: 'Nanum Gothic', sans-serif;
+      font-weight: 700;
+    }
+
+    .base-font{
+      font-family: 'Noto Sans KR', sans-serif;
+      font-weight: 300;
+    }
+
+    .base-nav-btn{
+      color: rgba(246, 75, 60, 1);
+      background: none;
+      border: none;
+      padding-left: 0;
+    }
+    
+    .base-nav-btn:hover {
+      color: rgba(253, 186, 154, 1);
+    }
+
+    .accounts-hr-color{
+      background-color: white;
+      height: 0.5px;
+      border: 0px;
+    }
+
+    .accounts-form-width{
+      width: 900px;
+    }
+
+    input[type="search"] {
+    background-color: rgba(253, 186, 154, 0.1);
+    }
+
+    .hvr-rotate {
+      display: inline-block;
+      vertical-align: middle;
+      -webkit-transform: perspective(1px) translateZ(0);
+      transform: perspective(1px) translateZ(0);
+      box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+      -webkit-transition-duration: 0.3s;
+      transition-duration: 0.3s;
+      -webkit-transition-property: transform;
+      transition-property: transform;
+    }
+    
+    .hvr-rotate:hover, .hvr-rotate:focus, .hvr-rotate:active {
+      -webkit-transform: rotate(60deg);
+      transform: rotate(30deg);
+    }
+    
+    .site-footer
+    {
+      background-color: rgba(17, 5, 2, 1);
+      padding:45px 0 20px;
+      font-size:15px;
+      line-height:24px;
+      color:#737373;
+      width: 940px;
+      margin: auto;
+    }
+    .site-footer hr
+    {
+      border-top-color:#bbb;
+      opacity:0.5
+    }
+    .site-footer hr.small
+    {
+      margin:20px 0
+    }
+    .site-footer h6
+    {
+      color:#fff;
+      font-size:16px;
+      text-transform:uppercase;
+      margin-top:5px;
+      letter-spacing:2px
+    }
+    .site-footer a
+    {
+      color:#737373;
+    }
+    .site-footer a:hover
+    {
+      color:#3366cc;
+      text-decoration:none;
+    }
+    .footer-links
+    {
+      padding-left:0;
+      list-style:none
+    }
+    .footer-links li
+    {
+      display:block
+    }
+    .footer-links a
+    {
+      color:#737373
+    }
+    .footer-links a:active,.footer-links a:focus,.footer-links a:hover
+    {
+      color:#3366cc;
+      text-decoration:none;
+    }
+    .footer-links.inline li
+    {
+      display:inline-block
+    }
+    .site-footer .social-icons
+    {
+      text-align:right
+    }
+    .site-footer .social-icons a
+    {
+      width:40px;
+      height:40px;
+      line-height:40px;
+      margin-left:6px;
+      margin-right:0;
+      border-radius:100%;
+      background-color:#33353d
+    }
+    .copyright-text
+    {
+      margin:0
+    }
+    @media (max-width:991px)
+    {
+      .site-footer [class^=col-]
+      {
+        margin-bottom:30px
+      }
+    }
+    @media (max-width:767px)
+    {
+      .site-footer
+      {
+        padding-bottom:0
+      }
+      .site-footer .copyright-text,.site-footer .social-icons
+      {
+        text-align:center
+      }
+    }
+    .social-icons
+    {
+      padding-left:0;
+      margin-bottom:0;
+      list-style:none
+    }
+    .social-icons li
+    {
+      display:inline-block;
+      margin-bottom:4px
+    }
+    .social-icons li.title
+    {
+      margin-right:15px;
+      text-transform:uppercase;
+      color:#96a2b2;
+      font-weight:700;
+      font-size:13px
+    }
+    .social-icons a{
+      background-color:#eceeef;
+      color:#818a91;
+      font-size:16px;
+      display:inline-block;
+      line-height:44px;
+      width:44px;
+      height:44px;
+      text-align:center;
+      margin-right:8px;
+      border-radius:100%;
+      -webkit-transition:all .2s linear;
+      -o-transition:all .2s linear;
+      transition:all .2s linear
+    }
+    .social-icons a:active,.social-icons a:focus,.social-icons a:hover
+    {
+      color:#fff;
+      background-color:#29aafe
+    }
+    .social-icons.size-sm a
+    {
+      line-height:34px;
+      height:34px;
+      width:34px;
+      font-size:14px
+    }
+    .social-icons a.facebook:hover
+    {
+      background-color:#3b5998
+    }
+    .social-icons a.twitter:hover
+    {
+      background-color:#00aced
+    }
+    .social-icons a.linkedin:hover
+    {
+      background-color:#007bb6
+    }
+    .social-icons a.dribbble:hover
+    {
+      background-color:#ea4c89
+    }
+    @media (max-width:767px)
+    {
+      .social-icons li.title
+      {
+        display:block;
+        margin-right:0;
+        font-weight:600
+      }
+    }
+
+    {% block style %}
+    {% endblock style %}
+  </style>
+</head>
+<body style="background-color: rgba(17, 5, 2, 1);">
+  <nav class="navbar navbar-expand-lg container" style="padding-top: 2rem; width: 60rem;">
+    <div class="container" style="position: relative;">
+      <div class="row align-items-start" style="margin: 0; position: absolute; top: 0;">
+        <a href="{% url 'community:index' %}" style="padding: 4;">
+          <img src="https://www.flaticon.com/svg/static/icons/svg/863/863170.svg" alt="" width=80>
+        </a>
+      </div>
+      <!--nav버튼들(home, 정보수정 등등)-->
+      <div class="ml-auto">
+        <div class="d-flex flex-row-reverse">
+          <button 
+            class="navbar-toggler"
+            type="button" 
+            data-toggle="collapse" 
+            data-target="#navbarNavDropdown" 
+            aria-controls="navbarNavDropdown" 
+            aria-expanded="false" 
+            aria-label="Toggle navigation"
+            style="padding-top: 1.5rem;"
+          >
+            <span class="navbar-toggler-icon inline-block d-flex justify-content-center align-items-center" style="position: relative; top: 0;">
+              <i class="fas fa-bars base-darkcrimson nav-button fa-2x"></i>
+            </span>
+          </button>
+        </div>
+        <div class="collapse navbar-collapse base-title-font" id="navbarNavDropdown">
+          <ul class="navbar-nav">
+            <li class="nav-item d-none d-lg-block">
+                <nav class="navbar navbar-light bg-black pt-0">
+                  <form class="form-inline" action="{% url 'movies:search' %}" method='GET' style="padding-top: 1.5rem;" id="navSearchForm">
+                    <input 
+                      class="form-control mr-sm-2" 
+                      type="search" 
+                      name="search"
+                      placeholder="Search Movie" 
+                      aria-label="Search"
+                    >
+                    <button class="btn my-2 my-sm-0" type="submit">
+                      <img width="30" class="hvr-rotate" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHhtbG5zOnN2Z2pzPSJodHRwOi8vc3ZnanMuY29tL3N2Z2pzIiB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgeD0iMCIgeT0iMCIgdmlld0JveD0iMCAwIDUxMSA1MTEuOTk5MDEiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDUxMiA1MTIiIHhtbDpzcGFjZT0icHJlc2VydmUiIGNsYXNzPSIiPjxnPjxwYXRoIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgZD0ibTExMS41ODIwMzEgMjgzLjYxMzI4MWMtMy44NzUtMy45MzM1OTMtMTAuMjEwOTM3LTMuOTgwNDY5LTE0LjE0NDUzMS0uMTAxNTYyLTMuOTMzNTk0IDMuODc1LTMuOTc2NTYyIDEwLjIwNzAzMS0uMTAxNTYyIDE0LjE0MDYyNWwuNzYxNzE4Ljc2OTUzMWMxLjk1MzEyNSAxLjk0OTIxOSA0LjUxMTcxOSAyLjkyMTg3NSA3LjA2NjQwNiAyLjkyMTg3NSAyLjU2MjUgMCA1LjEyNS0uOTgwNDY5IDcuMDc4MTI2LTIuOTM3NSAzLjkwMjM0My0zLjkxMDE1NiAzLjg5NDUzMS0xMC4yNDIxODgtLjAxNTYyNi0xNC4xNDQ1MzF6bTAgMCIgZmlsbD0iI2Y2NGIzYyIgZGF0YS1vcmlnaW5hbD0iIzAwMDAwMCIgc3R5bGU9IiIgY2xhc3M9IiI+PC9wYXRoPjxwYXRoIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgZD0ibTI5OC45MTQwNjIgOTcuNTkzNzVjLTU1LjM2NzE4Ny01NS4zNjcxODgtMTQ1LjQ1MzEyNC01NS4zNjcxODgtMjAwLjgyMDMxMiAwLTQzLjY0MDYyNSA0My42NDA2MjUtNTQuMTYwMTU2IDEwOS44ODI4MTItMjYuMTc1NzgxIDE2NC44Mzk4NDQgMi41MDc4MTIgNC45MjE4NzUgOC41MjczNDMgNi44Nzg5MDYgMTMuNDUzMTI1IDQuMzc1IDQuOTIxODc1LTIuNTA3ODEzIDYuODc4OTA2LTguNTI3MzQ0IDQuMzcxMDk0LTEzLjQ0OTIxOS0yNC4wNDI5NjktNDcuMjE0ODQ0LTE1LTEwNC4xMjg5MDYgMjIuNDk2MDkzLTE0MS42MjUgNDcuNTY2NDA3LTQ3LjU2NjQwNiAxMjQuOTY4NzUtNDcuNTY2NDA2IDE3Mi41MzUxNTcgMCA0Ny41NzAzMTIgNDcuNTcwMzEzIDQ3LjU3MDMxMiAxMjQuOTY4NzUgMCAxNzIuNTM5MDYzLTM2LjA4OTg0NCAzNi4wODk4NDMtOTEuNDI1NzgyIDQ1Ljg5ODQzNy0xMzcuNjkxNDA3IDI0LjQwNjI1LTUuMDA3ODEyLTIuMzI4MTI2LTEwLjk1NzAzMS0uMTUyMzQ0LTEzLjI4MTI1IDQuODU1NDY4LTIuMzI4MTI1IDUuMDA3ODEzLS4xNTIzNDMgMTAuOTU3MDMyIDQuODU1NDY5IDEzLjI4MTI1IDE5LjAzMTI1IDguODM5ODQ0IDM5LjM3MTA5NCAxMy4xMzI4MTMgNTkuNTg1OTM4IDEzLjEzMjgxMyAzNi45ODA0NjgtLjAwMzkwNyA3My41MTU2MjQtMTQuMzc1IDEwMC42NzU3ODEtNDEuNTM1MTU3IDU1LjM2MzI4MS01NS4zNjcxODcgNTUuMzYzMjgxLTE0NS40NTMxMjQtLjAwMzkwNy0yMDAuODIwMzEyem0wIDAiIGZpbGw9IiNmNjRiM2MiIGRhdGEtb3JpZ2luYWw9IiMwMDAwMDAiIHN0eWxlPSIiIGNsYXNzPSIiPjwvcGF0aD48cGF0aCB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGQ9Im01MDMuNzE4NzUgNDM5LjE0ODQzOC0xMzYuOTI5Njg4LTEzNi45Mjk2ODhjMTguODI0MjE5LTMwLjI5Mjk2OSAyOS43MTg3NS02Ni4wMDM5MDYgMjkuNzE4NzUtMTA0LjIxNDg0NCAwLTEwOS4xNzk2ODctODguODI0MjE4LTE5OC4wMDM5MDYtMTk4LjAwMzkwNi0xOTguMDAzOTA2LTEwOS4xNzk2ODcgMC0xOTguMDAzOTA2IDg4LjgyNDIxOS0xOTguMDAzOTA2IDE5OC4wMDM5MDYgMCAxMDkuMTc5Njg4IDg4LjgyNDIxOSAxOTguMDAzOTA2IDE5OC4wMDM5MDYgMTk4LjAwMzkwNiAzOC4yMDcwMzIgMCA3My45MTQwNjMtMTAuODkwNjI0IDEwNC4yMDMxMjUtMjkuNzEwOTM3bDEzNi45MzM1OTQgMTM2LjkyOTY4N2M1Ljg0NzY1NiA1Ljg0NzY1NyAxMy41MzEyNSA4Ljc3MzQzOCAyMS4yMTA5MzcgOC43NzM0MzggNy42ODM1OTQgMCAxNS4zNjcxODgtMi45MjU3ODEgMjEuMjE0ODQ0LTguNzczNDM4bDIxLjY1MjM0NC0yMS42NTIzNDNjMTEuNjk5MjE5LTExLjY5NTMxMyAxMS42OTkyMTktMzAuNzI2NTYzIDAtNDIuNDI1Nzgxem0tNDgzLjIxODc1LTI0MS4xNDQ1MzJjMC05OC4xNTIzNDQgNzkuODUxNTYyLTE3OC4wMDM5MDYgMTc4LjAwMzkwNi0xNzguMDAzOTA2czE3OC4wMDM5MDYgNzkuODUxNTYyIDE3OC4wMDM5MDYgMTc4LjAwMzkwNi03OS44NTE1NjIgMTc4LjAwMzkwNi0xNzguMDAzOTA2IDE3OC4wMDM5MDYtMTc4LjAwMzkwNi03OS44NTE1NjItMTc4LjAwMzkwNi0xNzguMDAzOTA2em0zMzQuNjk1MzEyIDEyMC45MDIzNDQgMjIuMTMyODEzIDIyLjEzNjcxOS0zNS43OTI5NjkgMzUuNzkyOTY5LTIyLjEzNjcxOC0yMi4xMzY3MTljMTMuMzk4NDM3LTEwLjM1OTM3NSAyNS40MzM1OTMtMjIuMzk0NTMxIDM1Ljc5Njg3NC0zNS43OTI5Njl6bTEzNC4zODI4MTMgMTQ4LjUyNzM0NC0yMS42NTIzNDQgMjEuNjQ4NDM3Yy0zLjg5ODQzNyAzLjkwMjM0NC0xMC4yNDIxODcgMy45MDIzNDQtMTQuMTQwNjI1IDBsLTk4LjEwNTQ2OC05OC4xMDE1NjIgMzUuNzkyOTY4LTM1Ljc5Njg3NSA5OC4xMDU0NjkgOTguMTA1NDY4YzMuODk4NDM3IDMuOTAyMzQ0IDMuODk4NDM3IDEwLjI0NjA5NCAwIDE0LjE0NDUzMnptMCAwIiBmaWxsPSIjZjY0YjNjIiBkYXRhLW9yaWdpbmFsPSIjMDAwMDAwIiBzdHlsZT0iIiBjbGFzcz0iIj48L3BhdGg+PHBhdGggeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiBkPSJtMjY4LjUwMzkwNiAxOTguMDAzOTA2YzAgNS41MjM0MzggNC40ODA0NjkgMTAgMTAuMDAzOTA2IDEwIDUuNTE5NTMyIDAgMTAtNC40NzY1NjIgMTAtMTAgMC0zNC4zNTkzNzUtMjAuMDE1NjI0LTY2LjIwMzEyNS01MC45ODQzNzQtODEuMTI1LTQuOTc2NTYzLTIuMzk4NDM3LTEwLjk1MzEyNi0uMzA0Njg3LTEzLjM1MTU2MyA0LjY2Nzk2OS0yLjM5NDUzMSA0Ljk3NjU2My0uMzA0Njg3IDEwLjk1MzEyNSA0LjY3MTg3NSAxMy4zNTE1NjMgMjQuMDkzNzUgMTEuNjA1NDY4IDM5LjY2MDE1NiAzNi4zNzUgMzkuNjYwMTU2IDYzLjEwNTQ2OHptMCAwIiBmaWxsPSIjZjY0YjNjIiBkYXRhLW9yaWdpbmFsPSIjMDAwMDAwIiBzdHlsZT0iIiBjbGFzcz0iIj48L3BhdGg+PHBhdGggeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiBkPSJtMTk4LjY2MDE1NiAxMjguMDAzOTA2YzUuNTIzNDM4IDAgMTAtNC40NzY1NjIgMTAtMTAgMC01LjUyMzQzNy00LjQ3NjU2Mi0xMC0xMC0xMGgtLjE1NjI1Yy01LjUyMzQzNyAwLTEwIDQuNDc2NTYzLTEwIDEwIDAgNS41MjM0MzggNC40NzY1NjMgMTAgMTAgMTB6bTAgMCIgZmlsbD0iI2Y2NGIzYyIgZGF0YS1vcmlnaW5hbD0iIzAwMDAwMCIgc3R5bGU9IiIgY2xhc3M9IiI+PC9wYXRoPjwvZz48L3N2Zz4=" />
+                    </button>
+                  </form>
+                </nav>
+              </li>
+            <li class="nav-item" align="right" style="padding-top: 1.5rem;">
+              <a class="nav-link base-nav-btn" href="{% url 'movies:index' %}" style="font-size: 1.2rem;">영화 추천</a>
+            </li>
+            {% if request.user.is_authenticated %}
+              <li class="nav-item dropdown d-block d-sm-block" align="right" style="padding-top: 1.5rem;">
+                <a 
+                  class="nav-link dropdown-toggle base-nav-btn" 
+                  href="#" 
+                  id="navbarDropdownMenuLink" 
+                  role="button" 
+                  data-toggle="dropdown" 
+                  aria-haspopup="true" 
+                  style="font-size: 1.2rem;"
+                  aria-expanded="false"
+                >
+                  {{ user.nickname }}
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" style="background-color: rgba(17, 5, 2, 1);">
+                  <!--드롭메뉴를 안내렸을 때 == 화면 크기가 클 때-->
+                  <a class="nav-link base-nav-btn d-none d-lg-block" href="{% url 'accounts:detail' user.pk %}" style="font-size: 1.2rem;">회원정보</a>
+                  <a class="nav-link base-nav-btn d-none d-lg-block" href="{% url 'accounts:update' %}" style="font-size: 1.2rem;">정보수정</a>
+                  <form class="nav-link d-none d-lg-block" action="{% url 'accounts:logout' %}" method="POST">
+                    {% csrf_token %}
+                    <input type="submit" value="Logout" class="base-nav-btn base-title-font d-none d-lg-block">
+                  </form>
+                  <!--드롭메뉴를 내렸을 때 == 화면 크기가 작을 때-->
+                  <a class="nav-link base-nav-btn d-block d-lg-none" href="{% url 'accounts:detail' user.pk %}" align="right" style="font-size: 1.2rem;">회원정보</a>
+                  <a class="nav-link base-nav-btn d-block d-lg-none" href="{% url 'accounts:update' %}" align="right" style="font-size: 1.2rem;">정보 수정</a>
+                  <div align="right">
+                    <form class="nav-link d-block d-lg-none" action="{% url 'accounts:logout' %}" method="POST">
+                      {% csrf_token %}
+                      <input type="submit" value="Logout" class="base-nav-btn base-title-font d-block d-lg-none pr-0">
+                    </form>
+                  </div>
+                </div>
+              </li>
+            {% else %}
+              <!--드롭메뉴를 안내렸을 때 == 화면 크기가 클 때-->
+              <li class="nav-item" style="padding-top: 1.5rem;">
+                <a class="nav-link base-nav-btn d-none d-lg-block" href="{% url 'accounts:login' %}" style="font-size: 1.2rem;">Login</a>
+              </li>
+              <li class="nav-item" style="padding-top: 1.5rem;">
+                <a class="nav-link base-nav-btn d-none d-lg-block" href="{% url 'accounts:signup' %}" style="font-size: 1.2rem;">Signup</a>
+              </li>
+              <!--드롭메뉴를 내렸을 때 == 화면 크기가 작을 때-->
+              <li class="nav-item">
+                <a class="nav-link base-nav-btn d-block d-lg-none" href="{% url 'accounts:login' %}" align="right" style="font-size: 1.2rem;">Login</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link base-nav-btn d-block d-lg-none" href="{% url 'accounts:signup' %}" align="right" style="font-size: 1.2rem;">Signup</a>
+              </li>
+            {% endif %}
+
+
+            <!--영화 검색 dropmenu-->
+            <li class="nav-item dropdown d-block d-sm-block d-lg-none" align="right">
+                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                  <li class="nav-item d-block d-lg-none" align="right">
+                    <nav class="navbar navbar-light bg-black" style="padding-right: 0;">
+                      <form class="form-inline" action="{% url 'movies:search' %}" method='GET'>
+                        <input 
+                          class="form-control mr-sm-2" 
+                          type="search" 
+                          name="search" 
+                          placeholder="영화 검색" 
+                          aria-label="Search"
+                        >
+                        <button class="btn my-2 my-sm-0" type="submit">
+                          <img width="30" class="hvr-rotate" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZlcnNpb249IjEuMSIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHhtbG5zOnN2Z2pzPSJodHRwOi8vc3ZnanMuY29tL3N2Z2pzIiB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiIgeD0iMCIgeT0iMCIgdmlld0JveD0iMCAwIDUxMSA1MTEuOTk5MDEiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDUxMiA1MTIiIHhtbDpzcGFjZT0icHJlc2VydmUiIGNsYXNzPSIiPjxnPjxwYXRoIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgZD0ibTExMS41ODIwMzEgMjgzLjYxMzI4MWMtMy44NzUtMy45MzM1OTMtMTAuMjEwOTM3LTMuOTgwNDY5LTE0LjE0NDUzMS0uMTAxNTYyLTMuOTMzNTk0IDMuODc1LTMuOTc2NTYyIDEwLjIwNzAzMS0uMTAxNTYyIDE0LjE0MDYyNWwuNzYxNzE4Ljc2OTUzMWMxLjk1MzEyNSAxLjk0OTIxOSA0LjUxMTcxOSAyLjkyMTg3NSA3LjA2NjQwNiAyLjkyMTg3NSAyLjU2MjUgMCA1LjEyNS0uOTgwNDY5IDcuMDc4MTI2LTIuOTM3NSAzLjkwMjM0My0zLjkxMDE1NiAzLjg5NDUzMS0xMC4yNDIxODgtLjAxNTYyNi0xNC4xNDQ1MzF6bTAgMCIgZmlsbD0iI2Y2NGIzYyIgZGF0YS1vcmlnaW5hbD0iIzAwMDAwMCIgc3R5bGU9IiIgY2xhc3M9IiI+PC9wYXRoPjxwYXRoIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgZD0ibTI5OC45MTQwNjIgOTcuNTkzNzVjLTU1LjM2NzE4Ny01NS4zNjcxODgtMTQ1LjQ1MzEyNC01NS4zNjcxODgtMjAwLjgyMDMxMiAwLTQzLjY0MDYyNSA0My42NDA2MjUtNTQuMTYwMTU2IDEwOS44ODI4MTItMjYuMTc1NzgxIDE2NC44Mzk4NDQgMi41MDc4MTIgNC45MjE4NzUgOC41MjczNDMgNi44Nzg5MDYgMTMuNDUzMTI1IDQuMzc1IDQuOTIxODc1LTIuNTA3ODEzIDYuODc4OTA2LTguNTI3MzQ0IDQuMzcxMDk0LTEzLjQ0OTIxOS0yNC4wNDI5NjktNDcuMjE0ODQ0LTE1LTEwNC4xMjg5MDYgMjIuNDk2MDkzLTE0MS42MjUgNDcuNTY2NDA3LTQ3LjU2NjQwNiAxMjQuOTY4NzUtNDcuNTY2NDA2IDE3Mi41MzUxNTcgMCA0Ny41NzAzMTIgNDcuNTcwMzEzIDQ3LjU3MDMxMiAxMjQuOTY4NzUgMCAxNzIuNTM5MDYzLTM2LjA4OTg0NCAzNi4wODk4NDMtOTEuNDI1NzgyIDQ1Ljg5ODQzNy0xMzcuNjkxNDA3IDI0LjQwNjI1LTUuMDA3ODEyLTIuMzI4MTI2LTEwLjk1NzAzMS0uMTUyMzQ0LTEzLjI4MTI1IDQuODU1NDY4LTIuMzI4MTI1IDUuMDA3ODEzLS4xNTIzNDMgMTAuOTU3MDMyIDQuODU1NDY5IDEzLjI4MTI1IDE5LjAzMTI1IDguODM5ODQ0IDM5LjM3MTA5NCAxMy4xMzI4MTMgNTkuNTg1OTM4IDEzLjEzMjgxMyAzNi45ODA0NjgtLjAwMzkwNyA3My41MTU2MjQtMTQuMzc1IDEwMC42NzU3ODEtNDEuNTM1MTU3IDU1LjM2MzI4MS01NS4zNjcxODcgNTUuMzYzMjgxLTE0NS40NTMxMjQtLjAwMzkwNy0yMDAuODIwMzEyem0wIDAiIGZpbGw9IiNmNjRiM2MiIGRhdGEtb3JpZ2luYWw9IiMwMDAwMDAiIHN0eWxlPSIiIGNsYXNzPSIiPjwvcGF0aD48cGF0aCB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGQ9Im01MDMuNzE4NzUgNDM5LjE0ODQzOC0xMzYuOTI5Njg4LTEzNi45Mjk2ODhjMTguODI0MjE5LTMwLjI5Mjk2OSAyOS43MTg3NS02Ni4wMDM5MDYgMjkuNzE4NzUtMTA0LjIxNDg0NCAwLTEwOS4xNzk2ODctODguODI0MjE4LTE5OC4wMDM5MDYtMTk4LjAwMzkwNi0xOTguMDAzOTA2LTEwOS4xNzk2ODcgMC0xOTguMDAzOTA2IDg4LjgyNDIxOS0xOTguMDAzOTA2IDE5OC4wMDM5MDYgMCAxMDkuMTc5Njg4IDg4LjgyNDIxOSAxOTguMDAzOTA2IDE5OC4wMDM5MDYgMTk4LjAwMzkwNiAzOC4yMDcwMzIgMCA3My45MTQwNjMtMTAuODkwNjI0IDEwNC4yMDMxMjUtMjkuNzEwOTM3bDEzNi45MzM1OTQgMTM2LjkyOTY4N2M1Ljg0NzY1NiA1Ljg0NzY1NyAxMy41MzEyNSA4Ljc3MzQzOCAyMS4yMTA5MzcgOC43NzM0MzggNy42ODM1OTQgMCAxNS4zNjcxODgtMi45MjU3ODEgMjEuMjE0ODQ0LTguNzczNDM4bDIxLjY1MjM0NC0yMS42NTIzNDNjMTEuNjk5MjE5LTExLjY5NTMxMyAxMS42OTkyMTktMzAuNzI2NTYzIDAtNDIuNDI1Nzgxem0tNDgzLjIxODc1LTI0MS4xNDQ1MzJjMC05OC4xNTIzNDQgNzkuODUxNTYyLTE3OC4wMDM5MDYgMTc4LjAwMzkwNi0xNzguMDAzOTA2czE3OC4wMDM5MDYgNzkuODUxNTYyIDE3OC4wMDM5MDYgMTc4LjAwMzkwNi03OS44NTE1NjIgMTc4LjAwMzkwNi0xNzguMDAzOTA2IDE3OC4wMDM5MDYtMTc4LjAwMzkwNi03OS44NTE1NjItMTc4LjAwMzkwNi0xNzguMDAzOTA2em0zMzQuNjk1MzEyIDEyMC45MDIzNDQgMjIuMTMyODEzIDIyLjEzNjcxOS0zNS43OTI5NjkgMzUuNzkyOTY5LTIyLjEzNjcxOC0yMi4xMzY3MTljMTMuMzk4NDM3LTEwLjM1OTM3NSAyNS40MzM1OTMtMjIuMzk0NTMxIDM1Ljc5Njg3NC0zNS43OTI5Njl6bTEzNC4zODI4MTMgMTQ4LjUyNzM0NC0yMS42NTIzNDQgMjEuNjQ4NDM3Yy0zLjg5ODQzNyAzLjkwMjM0NC0xMC4yNDIxODcgMy45MDIzNDQtMTQuMTQwNjI1IDBsLTk4LjEwNTQ2OC05OC4xMDE1NjIgMzUuNzkyOTY4LTM1Ljc5Njg3NSA5OC4xMDU0NjkgOTguMTA1NDY4YzMuODk4NDM3IDMuOTAyMzQ0IDMuODk4NDM3IDEwLjI0NjA5NCAwIDE0LjE0NDUzMnptMCAwIiBmaWxsPSIjZjY0YjNjIiBkYXRhLW9yaWdpbmFsPSIjMDAwMDAwIiBzdHlsZT0iIiBjbGFzcz0iIj48L3BhdGg+PHBhdGggeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiBkPSJtMjY4LjUwMzkwNiAxOTguMDAzOTA2YzAgNS41MjM0MzggNC40ODA0NjkgMTAgMTAuMDAzOTA2IDEwIDUuNTE5NTMyIDAgMTAtNC40NzY1NjIgMTAtMTAgMC0zNC4zNTkzNzUtMjAuMDE1NjI0LTY2LjIwMzEyNS01MC45ODQzNzQtODEuMTI1LTQuOTc2NTYzLTIuMzk4NDM3LTEwLjk1MzEyNi0uMzA0Njg3LTEzLjM1MTU2MyA0LjY2Nzk2OS0yLjM5NDUzMSA0Ljk3NjU2My0uMzA0Njg3IDEwLjk1MzEyNSA0LjY3MTg3NSAxMy4zNTE1NjMgMjQuMDkzNzUgMTEuNjA1NDY4IDM5LjY2MDE1NiAzNi4zNzUgMzkuNjYwMTU2IDYzLjEwNTQ2OHptMCAwIiBmaWxsPSIjZjY0YjNjIiBkYXRhLW9yaWdpbmFsPSIjMDAwMDAwIiBzdHlsZT0iIiBjbGFzcz0iIj48L3BhdGg+PHBhdGggeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiBkPSJtMTk4LjY2MDE1NiAxMjguMDAzOTA2YzUuNTIzNDM4IDAgMTAtNC40NzY1NjIgMTAtMTAgMC01LjUyMzQzNy00LjQ3NjU2Mi0xMC0xMC0xMGgtLjE1NjI1Yy01LjUyMzQzNyAwLTEwIDQuNDc2NTYzLTEwIDEwIDAgNS41MjM0MzggNC40NzY1NjMgMTAgMTAgMTB6bTAgMCIgZmlsbD0iI2Y2NGIzYyIgZGF0YS1vcmlnaW5hbD0iIzAwMDAwMCIgc3R5bGU9IiIgY2xhc3M9IiI+PC9wYXRoPjwvZz48L3N2Zz4=" />
+                        </button>
+                      </form>
+                    </nav>
+                  </li>
+                </div>
+              </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <br>
+  <h1 class="base-logo-font text-center base-darkcrimson display-4">
+    MoviePop
+  </h1>
+
+  <div class="container" style="background-color: rgba(255, 255, 255, 0); color: #FFFFFF;">
+    {% if request.user.is_authenticated %}
+      {% comment %} <p class="base-font base-ivory">닉네임 : {{ user.nickname }}</p> {% endcomment %}
+      {% comment %} <h1 style="color: rgba(255, 0, 0, 0.7);" class="base-font-dohyeon">"{{ user.nickname }}"님 안녕하세요.</h1> {% endcomment %}
+      {% comment %} <p class="base-font base-brightcrimson">"{{ user.nickname }}"님이 선호하는 장르 : {{ user.preference }}</p> {% endcomment %}
+    {% endif %}
+    <br>
+    <div class="container" style="width: 60rem;">
+      {% block content %}
+      {% endblock content %}
+    </div>
+  </div>
+  <br>
+  <br>
+  <br>
+  <br>
+  <!-- About Us -->
+    <!-- Site footer -->
+      <footer class="site-footer base-font">
+        <div class="container">
+          <div class="row">
+            <div class="col-sm-12 col-md-6">
+              <h6>About Us</h6>
+              <p class="text-justify">We are preliminary developers studying at 'SSAFY'. And we developed a program that provides web services as a final project. Nice to meet you! :) - Myoung and Gyeom -</p>
+            </div>
+
+            <div class="col-xs-6 col-md-3">
+              <h6>Categories</h6>
+              <ul class="footer-links">
+                <li><a href="https://www.python.org/">Python</a></li>
+                <li><a href="#">JavaScript</a></li>
+                <li><a href="https://www.djangoproject.com/">Django</a></li>
+                <li><a href="https://getbootstrap.com/">Bootstrap</a></li>
+                <li><a href="https://code.visualstudio.com/">VSCode</a></li>
+              </ul>
+            </div>
+
+            <div class="col-xs-6 col-md-3">
+              <h6>Quick Links</h6>
+              <ul class="footer-links">
+                <li><a href="https://www.ssafy.com/ksp/jsp/swp/swpMain.jsp">About Us</a></li>
+                <li><a href="https://www.ssafy.com/ksp/jsp/swp/swpMain.jsp">Contact Us</a></li>
+                <li><a href="https://www.ssafy.com/ksp/jsp/swp/swpMain.jsp">Sitemap</a></li>
+              </ul>
+            </div>
+          </div>
+          <hr>
+        </div>
+        <div class="container">
+          <div class="row">
+            <div class="col-md-8 col-sm-6 col-xs-12">
+              <p class="copyright-text">Copyright &copy; 2020 All Rights Reserved by 
+          <a href="https://www.ssafy.com/ksp/jsp/swp/swpMain.jsp">SSAFY</a>.
+              </p>
+            </div>
+
+            <div class="col-md-4 col-sm-6 col-xs-12">
+              <ul class="social-icons">
+                <li><a class="facebook" href="#"><i class="fa fa-facebook"></i></a></li>
+                <li><a class="twitter" href="#"><i class="fa fa-twitter"></i></a></li>
+                <li><a class="dribbble" href="#"><i class="fa fa-dribbble"></i></a></li>
+                <li><a class="linkedin" href="#"><i class="fa fa-linkedin"></i></a></li>   
+              </ul>
+            </div>
+          </div>
+        </div>
+  </footer>
+  <!-- 별모양 평점 넣기 cdn -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+</body>
+
+</html>

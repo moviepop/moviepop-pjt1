@@ -1,0 +1,68 @@
+<style>
+.inline-block{
+  display: inline-block;
+}
+.input-size{
+  width: 82%;
+  height: 50px;
+  border-radius: 5px;
+}
+</style>
+
+<form action="" method="POST" class="accounts-form-width">
+  {% csrf_token %}
+
+  <hr class="accounts-hr-color">
+  <h4 class="font-weight-bold mr-5 inline-block">아이디</h4>
+  <input
+    class="input-size"
+    type="text" 
+    name="username" 
+    maxlength="150" 
+    autocapitalize="none" 
+    autocomplete="username" 
+    autofocus="" 
+    required="" 
+    id="id_username" 
+    placeholder="150자 이하 문자 및 숫자"
+  >
+  <hr class="accounts-hr-color">
+  <h4 class="font-weight-bold mr-5 inline-block">닉네임</h4>
+  <input 
+    class="input-size"
+    type="text" 
+    name="nickname" 
+    maxlength="10" 
+    required="" 
+    id="id_nickname" 
+    placeholder="10자 이하"
+  >
+  <hr class="accounts-hr-color">
+  <h4 class="font-weight-bold inline-block mr-4" style="font-size: 24.5px;">비밀번호</h4>
+  <input 
+    class="input-size"
+    type="password" 
+    name="password1" 
+    autocomplete="new-password" 
+    required="" 
+    id="id_password1" 
+    placeholder="최소 8자 이상"
+  >
+  <br>
+  <br>
+  <h6 
+    class="font-weight-bold inline-block mr-3"
+    style="font-size: 17.3px;"
+  >
+    비밀번호 확인
+  </h6>
+  <input 
+    class="input-size"
+    type="password" 
+    name="password2" 
+    autocomplete="new-password" 
+    required="" 
+    id="id_password2" 
+    placeholder="최소 8자 이상"
+  >
+  <hr class="accounts-hr-color">

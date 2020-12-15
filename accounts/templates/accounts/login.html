@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  MoviePop | 로그인
+{% endblock title %}
+
+{% block content %}
+<style>
+input{
+  height: 50px;
+  outline: None;
+
+}
+#loginform{
+  left: 50%;
+  width: 400px;
+}
+</style>
+
+<br>
+<br>
+
+<hr>
+<div class="d-flex justify-content-center">
+  <form id="loginform" action="" method="POST" class="base-font">
+  {% comment %} 로그인에 실패하는 경우
+                (없는 계정이거나 비밀번호를 틀렸을 경우)
+                따로 공지가 없다. -> 수정하기
+  {% endcomment %}
+    <div class="text-center">
+      {% csrf_token %}
+      {% comment %} placeholder 글씨체 바꾸기 {% endcomment %}
+      <div class="input-group mb-2">
+        <div class="input-group-prepend">
+          <span class="headcon input-group-text" id="basic-addon1">
+            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-person-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+            </svg>
+          </span>
+        </div>
+        {{ form.username }}
+      </div>
+      <div class="input-group mb-2">
+        <div class="input-group-prepend">
+          <span class="headcon input-group-text" id="basic-addon2">
+            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-key-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" d="M3.5 11.5a3.5 3.5 0 1 1 3.163-5H14L15.5 8 14 9.5l-1-1-1 1-1-1-1 1-1-1-1 1H6.663a3.5 3.5 0 0 1-3.163 2zM2.5 9a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
+            </svg>
+          </span>
+        </div>
+        {{ form.password }}
+      </div>
+      {% comment %} 로그인 버튼 넓게 만들기 {% endcomment %}
+      <input
+        style="width: 400px;"
+        class="btn btn-warning mt-3" 
+        type="submit" 
+        value="로그인"
+      >
+      <br>
+      <br>
+      <span>
+        <span style="color: white;">아직 MoviePop 회원이 아니세요? </span>
+        <a href="{% url 'accounts:signup' %}">회원가입하기</a>
+      </span>
+    </div>
+  </form>
+</div>
+
+
+<script>
+  const idForm = document.querySelector('#id_username')
+  idForm.setAttribute('placeholder', 'ID')
+  idForm.setAttribute('class', 'form-control')
+  idForm.setAttribute('aria-label', 'Username')
+  idForm.setAttribute('aria-describedby','basic-addon1')
+  idForm.setAttribute('style', 'height: 60px;')
+  
+  const passwordForm = document.querySelector('#id_password')
+  passwordForm.setAttribute('placeholder', 'Password')
+  passwordForm.setAttribute('class', 'form-control')
+  passwordForm.setAttribute('aria-label', 'Password')
+  passwordForm.setAttribute('aria-describedby', 'basic-addon2')
+  passwordForm.setAttribute('style', 'height: 60px;')
+
+</script>
+{% endblock content %}

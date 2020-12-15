@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  MoviePop | 추천영화
+{% endblock title %}
+
+{% block content %}
+
+<style>
+.btn-color-ivory{
+  background-color: rgba(253, 186, 154, 0.5);
+  border: none;
+}
+.hover-img{
+  opacity: 0.5;
+}
+.hover-img:hover {
+  opacity: 1;
+}
+.bg-color{
+  background-color: rgba(0, 0, 0, 0.7);
+}
+.img-size{
+  height: 100%;
+  width: 100%;
+}
+.div-size{
+  height: 500px;
+  width: 30%;
+}
+.text-bottom{
+  display: table-cell;
+  vertical-align: middle;
+}
+.bottom-btn:hover{
+  background-color: rgba(253, 186, 154, 1);
+}
+
+
+</style>
+<br>
+<h3 class="base-font">{{ comment }}</h3>
+<br>
+<div class='d-flex row base-font' style="width: 980px">
+  {% for movie in recommend_movie_list %}
+    <div class="card bg-dark text-white div-size m-2 movie-card">
+      <img 
+        src="https://image.tmdb.org/t/p/w500{{ movie.poster_path }}" 
+        class="card-img hover-img img-size" 
+        alt="..."
+      >
+      <div 
+        class="card-img-overlay hover-img bg-color"
+        style="position: absolute; top: 22rem;"
+      >
+        {% comment %} <div style="height: 22rem;">
+        </div> {% endcomment %}
+        <div>
+          <div class="h4 card-title text-truncate locate base-title-font text-center">{{ movie.title }}</div>
+          {% if movie.overview|length > 0 %}
+            <p class="card-text text-truncate base-font">{{ movie.overview }}</p>
+          {% else %}
+            <p class="card-text text-truncate base-font">Detail페이지에서 줄거리를 확인해주세요</p>
+          {% endif %}
+          {% comment %} <p class="card-text">{{ movie.release_date }}</p> {% endcomment %}
+          <div class="d-flex justify-content-around">
+            <a
+              href="{% url 'movies:detail' movie.movie_id %}" 
+              class="btn btn-color-ivory bottom-btn"
+              style="color: rgba(255, 255, 255, 1); width: 7.5rem;"
+            >
+              Detail
+            </a>
+            <a
+              href="{% url 'movies:naver_link' movie.title movie.release_date|date:"Y" %}" 
+              class="btn btn-color-ivory bottom-btn" 
+              style="color: rgba(255, 255, 255, 1); width: 7.5rem;"
+            >
+              Link
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  {% endfor %}
+</div>
+
+<script>
+  const movieCards = document.querySelectorAll('.movie-card')
+  movieCards.forEach(card => {
+    card.addEventListener('mouseover', event => {
+      console.log(event)
+    })
+  })
+</script>
+
+{% endblock content %}

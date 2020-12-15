@@ -1,0 +1,173 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  MoviePop | {{ user.nickname }}
+{% endblock title %}
+
+
+{% block content %}
+
+<style>
+.userdetail{
+  margin-left: auto;
+  margin-right: auto;
+  margin: 0px auto;
+}
+.idnickname{
+  margin: 0px;
+  display: inline-block;
+}
+.atag{
+  color: white;
+}
+a:hover{
+  text-decoration: None;
+  color: rgba(246, 75, 60, 0.7);
+}
+</style>
+
+  <div>
+    {% comment %} <h1 
+      class="text-center base-title-font base-darkcrimson"
+    >
+      My Page
+    </h1> {% endcomment %}
+    <div 
+      class="base-font accounts-form-width userdetail base-ivory"
+      
+    >
+      <hr class="accounts-hr-color">
+      <h4 class="ml-3">🌽{{ user.nickname }}님의 Corn Graph🌽</h4>
+      <br>
+      <p id="genreData" style="display: None;">{{ genre_code }}</p>
+      <canvas class="base-ivory" id="barChart"></canvas>
+      <hr class="accounts-hr-color">
+      <div class="">
+        <h4 class="idnickname mr-4 ml-3" style="width: 100px;"> 아이디 |</h4>
+        <h4 class="idnickname" style="width: 200px; color: white;">{{ user.username }}</h4>
+        <hr class="accounts-hr-color">
+        <h4 class="idnickname mr-4 ml-3" style="width: 100px;">닉네임 |</h4>
+        <h4 class="idnickname" style="width: 200px; color: white;">{{ user.nickname }}</h4>
+        <hr class="accounts-hr-color">
+        <h4 class="ml-3">{{ user.nickname }}님의 리뷰 ({{ articles|length }})</h4>
+        <div class="ml-5">
+          {% for article in articles %}
+            <a 
+              class="atag" 
+              href="{% url 'community:detail' article.pk %}"
+            >
+              <span style="font-weight: bold;">{{ article.movie }}</span> | {{ article.title|truncatechars:20 }} | {{ article.updated_at|date:"Y/m/d H:i" }}
+            </a>
+            <br>
+          {% endfor %}
+        </div>
+        <hr>
+        <h4 class="ml-3">{{ user.nickname }}님이 댓글단 리뷰 ({{ comments|length }})</h4>
+        <div class="ml-5"> 
+          {% for comment in comments %}
+            <a 
+              class="atag"
+              href="{% url 'community:detail' comment.article.pk %}"
+            >
+              <span style="font-weight: bold;">{{ comment.content|truncatechars:20 }}</span> | {{ comment.article.title|truncatechars:20 }} | {{ comment.updated_at|date:"Y/m/d H:i" }}
+            </a>
+            <br>
+          {% endfor %}
+        </div>
+        <hr>
+        <h4 class="ml-3">{{ user.nickname }}님이 추천하는 리뷰 ({{ like_articles|length }})</h4>
+        <div class="ml-5">
+          {% for like in like_articles %}
+            <a 
+              class="atag" 
+              href="{% url 'community:detail' like.pk %}"
+            >
+              <span style="font-weight: bold;">{{ like.movie }}</span> | {{ like.title|truncatechars:20 }}
+            </a>
+            <br>
+          {% endfor %}
+        </div>
+        <hr>
+        <br>
+      </div>
+    </div>
+  
+
+  </div>
+
+
+  <script>
+    //bar
+      const genreData = document.querySelector('#genreData')
+      const chartData = genreData.innerText
+      const chartArray = chartData.split('')
+      console.log(chartArray)
+      const ctxB = document.getElementById("barChart").getContext('2d');
+      const myBarChart = new Chart(ctxB, {
+        type: 'bar',
+        data: {
+          labels: [
+            "액션", "드라마", "스릴러", "로맨스", "가족", "SF",
+            "판타지","모험", "코미디", "범죄", "미스터리", "애니메이션",
+            "다큐멘터리", "역사", "전쟁", "공포", "음악", "서부", "TV영화"  
+          ],
+          datasets: [{
+            label: '선호도 지수',
+            data: chartArray,
+            backgroundColor: [
+              'rgba(255, 99, 132, 0.3)',
+              'rgba(54, 162, 235, 0.3)',
+              'rgba(255, 206, 86, 0.3)',
+              'rgba(75, 192, 192, 0.3)',
+              'rgba(153, 102, 255, 0.3)',
+              'rgba(255, 159, 64, 0.3)',
+              'rgba(255, 99, 132, 0.3)',
+              'rgba(54, 162, 235, 0.3)',
+              'rgba(255, 206, 86, 0.3)',
+              'rgba(75, 192, 192, 0.3)',
+              'rgba(153, 102, 255, 0.3)',
+              'rgba(255, 159, 64, 0.3)',
+              'rgba(255, 99, 132, 0.3)',
+              'rgba(54, 162, 235, 0.3)',
+              'rgba(255, 206, 86, 0.3)',
+              'rgba(75, 192, 192, 0.3)',
+              'rgba(153, 102, 255, 0.3)',
+              'rgba(255, 159, 64, 0.3)',
+              'rgba(255, 99, 132, 0.3)'
+            ],
+            borderColor: [
+              'rgba(255,99,132,1)',
+              'rgba(54, 162, 235, 1)',
+              'rgba(255, 206, 86, 1)',
+              'rgba(75, 192, 192, 1)',
+              'rgba(153, 102, 255, 1)',
+              'rgba(255, 159, 64, 1)',
+              'rgba(255,99,132,1)',
+              'rgba(54, 162, 235, 1)',
+              'rgba(255, 206, 86, 1)',
+              'rgba(75, 192, 192, 1)',
+              'rgba(153, 102, 255, 1)',
+              'rgba(255, 159, 64, 1)',
+              'rgba(255,99,132,1)',
+              'rgba(54, 162, 235, 1)',
+              'rgba(255, 206, 86, 1)',
+              'rgba(75, 192, 192, 1)',
+              'rgba(153, 102, 255, 1)',
+              'rgba(255, 159, 64, 1)',
+              'rgba(255,99,132,1)',
+              ],
+            borderWidth: 1
+          }]
+        },
+        options: {
+          scales: {
+            yAxes: [{
+              ticks: {
+                beginAtZero: true
+              }
+            }]
+          }
+        }
+      });
+  </script>
+{% endblock content %}

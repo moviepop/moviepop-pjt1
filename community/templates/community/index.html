@@ -1,0 +1,391 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  MoviePop | 리뷰 목록
+{% endblock title %}
+
+{% block style %}
+
+  .list-group-item{
+    {% comment %} background-color: rgba(255, 255, 255, 0.2); {% endcomment %}
+    background-color: rgba(17, 5, 2, 1);
+    text-align: center;
+  }
+
+  .list-group-font{
+    font-family: 'Nanum Gothic', sans-serif;
+    font-size: x-large;
+    font-weight: 700;
+    color: rgba(253, 186, 154, 1);
+  }
+
+  .list-item-font{
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: large;
+    font-weight: 400;
+  }
+
+  .button{
+    {% comment %} background-color: rgba(17, 5, 2, 1); {% endcomment %}
+    border: none;
+    color: rgba(17, 5, 2, 1);
+    font-family: 'Nanum Gothic', sans-serif;
+    font-size: large;
+    font-weight: 700;
+  }
+
+  .btn-color-lightcrimson{
+    background-color: rgba(246, 75, 60, 0.7);
+    border: none;
+  }
+
+  .button:hover{
+    background-color: rgba(253, 186, 154, 1);
+  }
+
+  .list-link-item{
+  color: white;
+  }
+  
+  .list-link-item:hover{
+    text-decoration: None;
+    color: rgba(253, 186, 154, 1);
+  }
+
+  .page-font{
+    font-family: 'Noto Sans KR', sans-serif;
+    font-weight: 500;
+    font-size: large;
+  }
+
+  .white-line{
+    background-color: #ffffff;
+  }
+
+
+{% endblock style %}
+
+{% block content %}
+
+  {% if request.user.is_authenticated %}
+  <!-- modal button -->
+  <div class="d-flex content-align-right">
+    <a 
+      class="btn button btn-color-lightcrimson ml-auto page-font"  
+      data-toggle="modal"
+      data-target="#inputMovieName"
+    >
+      글 작성하기
+    </a>
+  </div>
+  <br>
+
+  <!-- Modal -->
+  <div 
+    class="modal fade" 
+    id="inputMovieName" 
+    tabindex="-1" 
+    role="dialog" 
+    aria-labelledby="exampleModalLabel" 
+    aria-hidden="true"
+  >
+    <div class="modal-dialog" role="document">
+      <div class="modal-content" style="background-color: rgba(17, 5, 2, 0.8);">
+        <div class="modal-header text-center container">
+          <h5 class="text-center modal-title base-title-font" id="exampleModalLabel" style="color: #ffffff;">키워드로 찾아주세요!</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color: #ffffff;">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div id="movie-box" class="modal-body container" style="color: rgba(0, 0, 0, 1)">
+          <input id="movie-input" type="text" class="d-inline-block input-group col-9 mr-2" placeholder="영화제목을 입력해주세요." style="width: 86%;">
+          <button id="movie-button" class="btn button btn-color-lightcrimson col-2 ml-2 base-title-font">검색</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {% else %}
+  <div class="d-flex justify-content-end">
+    <a class="btn button btn-color-lightcrimson" href="{% url 'accounts:login' %}">글을 작성하려면 로그인 하세요.</a>
+  </div>
+  <div 
+    class="modal fade d-none" 
+    id="inputMovieName" 
+    tabindex="-1" 
+    role="dialog" 
+    aria-labelledby="exampleModalLabel" 
+    aria-hidden="true"
+    >
+    <div class="modal-dialog" role="document">
+      <div class="modal-content" style="background-color: rgba(17, 5, 2, 0.8);">
+        <div class="modal-header text-center container">
+          <h5 class="text-center modal-title base-title-font" id="exampleModalLabel" style="color: #ffffff;">키워드로 찾아주세요!</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color: #ffffff;">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div id="movie-box" class="modal-body container" style="color: rgba(0, 0, 0, 1)">
+          <input id="movie-input" type="text" class="d-inline-block input-group col-9 mr-2" placeholder="영화제목을 입력해주세요." style="width: 86%;">
+          <button id="movie-button" class="btn button btn-color-lightcrimson col-2 ml-2 base-title-font">검색</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br>
+  {% endif %}
+
+  <!-- 표 제목 -->
+  <li class="list-group-item p-0">
+    <ul class="list-group list-group-horizontal container p-0">
+      <li class="list-group-item list-group-font col-3 px-0 base-title-font h5">영화</li>
+      <li class="list-group-item list-group-font col-3 px-0 base-title-font h5">제목</li>
+      <li class="list-group-item list-group-font col-2 px-0 base-title-font h5">글쓴이</li>
+      <li class="list-group-item list-group-font col-2 col-md-3 col-lg-2 px-0 base-title-font h5">작성일</li>
+      <li class="list-group-item list-group-font col-1 px-0 base-title-font h5">별점</li>
+      <li class="list-group-item list-group-font col-1 d-md-none d-lg-block px-0 base-title-font h5">추천</li>
+    </ul>
+  </li>
+
+  <hr class="white-line">
+
+  {% for post in posts %}
+    <li class="list-group-item p-0">
+      <ul class="list-group list-group-horizontal container p-0">
+        <li class="list-group-item col-3 px-0 list-item-font">
+          <a href="{% url 'movies:detail' post.movie.pk %}" class="list-link-item review-movie">
+            {{ post.movie|truncatechars:12 }}
+          </a>
+        </li>
+        <li class="list-group-item col-3 px-0 list-item-font">
+          <a href="{% url 'community:detail' post.pk %}" class="list-link-item review-title" id="{{ post.pk }}">
+            {{ post.title|truncatechars:10 }} ({{ post.comment_set.all|length }})
+          </a>
+        </li>
+        <li class="list-group-item col-2 px-0 list-item-font">
+          <a href="{% url 'accounts:detail' post.user.pk %}" class="list-link-item review-user">
+            {{ post.user.nickname }}
+          </a>
+        </li>
+        <li class="list-group-item col-2 col-md-3 col-lg-2 px-0 list-item-font">
+          {{ post.created_at|date:"Y년 M d일" }}
+        </li>
+        <li class="list-group-item col-1 px-0 list-item-font">⭐{{ post.score }}</li>
+        <li class="list-group-item col-1 d-md-none d-lg-block px-0 list-item-font">{{ post.like_users.all|length }}</li>
+      </ul>
+    </li>
+  {% endfor %}
+  <br>
+  <!-- pagenation -->
+    <div class="text-center page-font">
+      {% if posts.has_previous %}
+      <!--앞으로-->
+        <a href="?page={{ posts.previous_page_number }}" class="page-btn">
+          <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
+            width="50" height="50"
+            viewBox="0 0 172 172"
+            style=" fill:#000000;"
+            transform="rotate(180)">
+            <g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal">
+              <path d="M0,172v-172h172v172z" fill="none"></path>
+              <g fill="#c81912">
+                <path d="M86,28.66667c31.61217,0 57.33333,25.72117 57.33333,57.33333c0,31.61217 -25.72117,57.33333 -57.33333,57.33333c-31.61217,0 -57.33333,-25.72117 -57.33333,-57.33333c0,-31.61217 25.72117,-57.33333 57.33333,-57.33333M86,14.33333c-39.5815,0 -71.66667,32.08875 -71.66667,71.66667c0,39.57433 32.08517,71.66667 71.66667,71.66667c39.5815,0 71.66667,-32.09233 71.66667,-71.66667c0,-39.57792 -32.08517,-71.66667 -71.66667,-71.66667z"></path>
+                <path d="M125.41667,86l-35.83333,-28.66667v57.33333z"></path>
+                <path d="M46.58333,78.83333h53.75v14.33333h-53.75z"></path>
+              </g>
+            </g>
+          </svg>
+        </a>
+      {% else %}
+        <a href="?page=1" class="page-btn">
+          <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
+            width="50" height="50"
+            viewBox="0 0 172 172"
+            style=" fill:#000000;"
+            transform="rotate(180)">
+            <g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal">
+              <path d="M0,172v-172h172v172z" fill="none"></path>
+              <g fill="#c81912">
+                <path d="M86,28.66667c31.61217,0 57.33333,25.72117 57.33333,57.33333c0,31.61217 -25.72117,57.33333 -57.33333,57.33333c-31.61217,0 -57.33333,-25.72117 -57.33333,-57.33333c0,-31.61217 25.72117,-57.33333 57.33333,-57.33333M86,14.33333c-39.5815,0 -71.66667,32.08875 -71.66667,71.66667c0,39.57433 32.08517,71.66667 71.66667,71.66667c39.5815,0 71.66667,-32.09233 71.66667,-71.66667c0,-39.57792 -32.08517,-71.66667 -71.66667,-71.66667z"></path>
+                <path d="M125.41667,86l-35.83333,-28.66667v57.33333z"></path>
+                <path d="M46.58333,78.83333h53.75v14.33333h-53.75z"></path>
+              </g>
+            </g>
+          </svg>
+        </a>
+      {% endif %}
+      <span class="m-2 page-font">{{ posts.number }} / {{ posts.paginator.num_pages }}</span>
+      {% if posts.has_next %}
+        <a href="?page={{ posts.next_page_number }}" class="page-btn">
+          <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
+            width="50" height="50"
+            viewBox="0 0 172 172"
+            style=" fill:#000000;">
+            <g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal">
+              <path d="M0,172v-172h172v172z" fill="none"></path>
+              <g fill="#c81912">
+                <path d="M86,28.66667c31.61217,0 57.33333,25.72117 57.33333,57.33333c0,31.61217 -25.72117,57.33333 -57.33333,57.33333c-31.61217,0 -57.33333,-25.72117 -57.33333,-57.33333c0,-31.61217 25.72117,-57.33333 57.33333,-57.33333M86,14.33333c-39.5815,0 -71.66667,32.08875 -71.66667,71.66667c0,39.57433 32.08517,71.66667 71.66667,71.66667c39.5815,0 71.66667,-32.09233 71.66667,-71.66667c0,-39.57792 -32.08517,-71.66667 -71.66667,-71.66667z"></path><path d="M125.41667,86l-35.83333,-28.66667v57.33333z"></path>
+                <path d="M46.58333,78.83333h53.75v14.33333h-53.75z"></path>
+              </g>
+            </g>
+          </svg>
+        </a>
+      {% else %}
+        <a href="?page={{ posts|length }}" class="page-btn">
+          <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
+            width="50" height="50"
+            viewBox="0 0 172 172"
+            style=" fill:#000000;">
+            <g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal">
+              <path d="M0,172v-172h172v172z" fill="none"></path>
+              <g fill="#c81912">
+                <path d="M86,28.66667c31.61217,0 57.33333,25.72117 57.33333,57.33333c0,31.61217 -25.72117,57.33333 -57.33333,57.33333c-31.61217,0 -57.33333,-25.72117 -57.33333,-57.33333c0,-31.61217 25.72117,-57.33333 57.33333,-57.33333M86,14.33333c-39.5815,0 -71.66667,32.08875 -71.66667,71.66667c0,39.57433 32.08517,71.66667 71.66667,71.66667c39.5815,0 71.66667,-32.09233 71.66667,-71.66667c0,-39.57792 -32.08517,-71.66667 -71.66667,-71.66667z"></path>
+                <path d="M125.41667,86l-35.83333,-28.66667v57.33333z"></path>
+                <path d="M46.58333,78.83333h53.75v14.33333h-53.75z"></path>
+              </g>
+            </g>
+          </svg>
+        </a>
+      {% endif %}
+    </div>
+
+    <div class="text-center m-2">
+      <!--맨 앞으로-->
+      <a href="?page=1" class="page-btn">
+        <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
+          width="30" height="30"
+          viewBox="0 0 172 172"
+          style=" fill:#000000;"
+          transform="rotate(180)">
+          <g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal">
+          <path d="M0,172v-172h172v172z" fill="none"></path>
+            <g fill="#c81912">
+              <path d="M93.16667,86l-50.16667,-35.83333v71.66667z"></path>
+              <path d="M129,86l-50.16667,-35.83333v71.66667z"></path>
+            </g>
+          </g>
+        </svg>
+      </a>
+      <span class="base-font">{{ startpostnumber }} - {{ endpostnumber }} of {{ articles|length }}</span>
+      <!--맨 뒤로-->
+      <a href="?page={{ posts.paginator.num_pages }}" class="page-btn">
+        <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
+          width="30" height="30"
+          viewBox="0 0 172 172"
+          style=" fill:#000000;">
+          <g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal">
+          <path d="M0,172v-172h172v172z" fill="none"></path>
+            <g fill="#c81912">
+              <path d="M93.16667,86l-50.16667,-35.83333v71.66667z"></path>
+              <path d="M129,86l-50.16667,-35.83333v71.66667z"></path>
+            </g>
+          </g>
+        </svg>
+      </a>
+    </div>
+
+<!-- javascript -->
+<script>
+  //const BASE_URL = 'http://127.0.0.1:8000'
+  const input = document.querySelector('#movie-input')
+  const button = document.getElementById('movie-button')
+  const movielist = document.querySelector('#movie-box')
+  // console.log(button)
+
+  // 영화 데이터 받아오기를 위한 ajax 요청
+
+  function addMovie(movie) {
+    // console.log(movie.title)
+    // console.log(movie.movie_id)
+    const movieId = movie.movie_id
+    const title = movie.title
+    const a = document.createElement('a')
+    a.innerText = title
+    a.setAttribute('style', 'color: rgba(255, 255, 255, 1);')
+    a.setAttribute('class', 'btn')
+    a.setAttribute('href', `/community/create/${movieId}/`)
+    movielist.appendChild(a)
+  }
+
+  function movieData () {
+    const content = input.value
+    axios.get(`/movies/search_title/${content}`)
+      .then(res => {
+        for (let movie in res.data) {
+          addMovie(res.data[movie])
+        }
+      })
+      .catch(err => {
+        console.error(err)
+      })
+  }
+
+  button.addEventListener('click', movieData)
+  input.addEventListener('keypress', function (event) {
+    if (event.code === 'Enter') {
+      movieData()
+    }
+  })
+
+  const mouseoverFunc = function (event) {
+      event.path[2].children[0].setAttribute('style', 'background-color: rgba(255, 255, 255, 0.3);')
+      event.path[2].children[1].setAttribute('style', 'background-color: rgba(255, 255, 255, 0.3);')
+      event.path[2].children[2].setAttribute('style', 'background-color: rgba(255, 255, 255, 0.3);')
+      event.path[2].children[3].setAttribute('style', 'background-color: rgba(255, 255, 255, 0.3);')
+      event.path[2].children[4].setAttribute('style', 'background-color: rgba(255, 255, 255, 0.3);')
+      event.path[2].children[5].setAttribute('style', 'background-color: rgba(255, 255, 255, 0.3);')
+  }
+
+  const mouseoutFunc = function (event) {
+      event.path[2].children[0].removeAttribute('style', 'background-color: rgba(255, 255, 255, 0.3);')
+      event.path[2].children[1].removeAttribute('style', 'background-color: rgba(255, 255, 255, 0.3);')
+      event.path[2].children[2].removeAttribute('style', 'background-color: rgba(255, 255, 255, 0.3);')
+      event.path[2].children[3].removeAttribute('style', 'background-color: rgba(255, 255, 255, 0.3);')
+      event.path[2].children[4].removeAttribute('style', 'background-color: rgba(255, 255, 255, 0.3);')
+      event.path[2].children[5].removeAttribute('style', 'background-color: rgba(255, 255, 255, 0.3);')
+  }
+
+  const movieReview = document.querySelectorAll('.review-movie')
+  movieReview.forEach(movie => {
+    movie.addEventListener('mouseover', mouseoverFunc)
+    movie.addEventListener('mouseout', mouseoutFunc)
+  })
+
+  const movieTitle = document.querySelectorAll('.review-title')
+  movieTitle.forEach(title => {
+    title.addEventListener('mouseover', mouseoverFunc)
+    title.addEventListener('mouseout', mouseoutFunc)
+  })
+
+  const movieReviewUser = document.querySelectorAll('.review-user')
+  movieReviewUser.forEach(user => {
+    user.addEventListener('mouseover', mouseoverFunc)
+    user.addEventListener('mouseout', mouseoutFunc)
+  })
+
+  const pageBtns = document.querySelectorAll('.page-btn')
+  pageBtns.forEach(btn => {
+    btn.addEventListener('mouseover', event => {
+      try {
+        const pageBtn = event.path[0].children[0].children[1]
+        //console.log(pageBtn)
+        //console.log(event.path[0].children[0])
+        pageBtn.removeAttribute('fill', '#c81912')
+        pageBtn.setAttribute('fill', '#fdba9a')
+      } catch (e) {
+        //console.log('버튼위치가 잘못되었습니다.(예외처리)')
+      }
+    })
+    btn.addEventListener('mouseout', event => {
+      try {
+      const pageBtn = event.path[0].children[0].children[1]
+      pageBtn.removeAttribute('fill', '#fdba9a')
+      pageBtn.setAttribute('fill', '#c81912')
+      } catch (e) {
+        //console.log('버튼위치가 잘못되었습니다.(예외처리)')
+      }
+    })
+  })
+
+</script>
+{% endblock content %}

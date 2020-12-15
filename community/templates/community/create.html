@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  MoviePop | {{ movie.title }} 리뷰
+{% endblock title %}
+
+{% block content %}
+
+<style>
+.half{
+  display: inline-block;
+}
+
+.card-size{
+  width: 350;
+  height: 600;
+}
+
+.btn{
+  color: rgba(253, 186, 154, 1);
+}
+
+.btn:hover{
+  color: rgba(246, 75, 60, 1);
+}
+
+</style>
+
+<div>
+  <div class="col-row base-font d-flex justify-content-center">
+
+    <div class="half col-5 m-0 p-0 d-flex justify-content-center">
+      <div class="card mt-3" style="width: 20rem; background-color: rgba(17, 5, 2, 1);">
+        <img src="https://image.tmdb.org/t/p/w500{{ movie.backdrop_path }}" class="card-img-top" alt="...">
+        <div class="card-body p-0" style="background-color: rgba(17, 5, 2, 1); border-line: None;">
+          <h5 class="card-title ml-2 mt-3">{{ movie.original_title }} | {{ movie.release_date.year }}</h5>
+          <hr class="accounts-hr-color">
+          <p class="card-text truncate ml-2" style="width: 250px; height: 190px; overflow: hidden;">{{ movie.overview }}</p>
+          <a id="hover" href="{% url 'movies:detail' movie.movie_id %}" class="base-ivory btn m-0 p-0 ml-2 a-color-ivory">Movie Detail</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-7 half mt-3 mr-5 p-0">
+      <h4>영화 | {{ movie.title }}</h4>
+      <hr class="accounts-hr-color">
+      <form action="" method="POST">
+        {% csrf_token %}
+        <div class="form-group" id="inputForm">
+          <label for="formTitle"> 제목 </label>
+          {{ form.title }}
+          <br>
+          <label for="formContent"> 본문 </label>
+          {{ form.content }}
+          <br>
+          {{ form.score }}
+          <input class="btn base-ivory" type="submit" id="hover">
+          <a class="btn base-brightcrimson" href="{% url 'community:index' %}">back</a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+  <br>
+  <br>
+  <br>
+  <br>
+
+<script>
+// 제목 입력 폼
+const inputForm = document.querySelector('#inputForm')
+console.log(inputForm)
+const titleForm = inputForm.children[1]
+console.log(titleForm)
+titleForm.setAttribute('class', 'form-control')
+titleForm.setAttribute('id', 'formTitle')
+titleForm.setAttribute('placeholder', '제목을 입력해주세요.')
+
+// 내용 입력 폼
+const contentForm = inputForm.children[4]
+contentForm.setAttribute('class', 'form-control')
+contentForm.setAttribute('id', 'formContent')
+contentForm.setAttribute('rows', '9')
+contentForm.setAttribute('placeholder', '내용을 입력해주세요.')
+
+// 평점 입력 폼
+const scoreForm = inputForm.children[6]
+scoreForm.setAttribute('class', 'form-control m-0')
+scoreForm.setAttribute('style', 'width: 232.5px; display: inline-block;')
+scoreForm.setAttribute('placeholder', '평점을 입력해주세요.')
+
+
+// 버튼 호버링
+const aHover = document.querySelectorAll('#hover')
+
+
+
+</script>
+
+{% endblock content %}

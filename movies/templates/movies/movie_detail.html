@@ -1,0 +1,164 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  MoviePop | {{ movie.title }}
+{% endblock title %}
+
+{% block content %}
+
+
+<style>
+  .base-color{
+    color: rgba(255, 255, 255, 0.7);
+    opacity: 0.5;
+  }
+  .checked{
+    color: rgba(253, 186, 154, 1);
+  }
+  .bg-img{
+    background: url(https://image.tmdb.org/t/p/w500{{ movie.backdrop_path }})
+    no-repeat fixed 50% 50%/ 100% 100%;
+  }
+
+  .button{
+    background-color: none;
+    width: 5rem;
+    height: 2rem;
+    border: none;
+    color: rgba(17, 5, 2, 1);
+    font-family: 'Nanum Gothic', sans-serif;
+    font-size: large;
+    font-weight: 700;
+  }
+
+  .btn-color-lightcrimson{
+    background-color: rgba(246, 75, 60, 0.7);
+    border: none;
+  }
+  .btn-color-lightcrimson:hover{
+    background-color: rgba(253, 186, 154, 1);
+    border: none;
+  }
+
+  .btn-font{
+    font-family: 'Noto Sans KR', sans-serif;
+    font-weight: 500;
+    font-size: large;
+  }
+
+  .review-write-go{
+    color: #ffffff;
+  }
+  .review-write-go:hover{
+    color: rgba(253, 186, 154, 1);
+  }
+
+  .review-read-go{
+    color: #ffffff;
+  }
+  .review-read-go:hover{
+    color: rgba(246, 75, 60, 1);
+  }
+
+
+</style>
+<div class="container base-font bg-img p-0">
+  <div class="media" style="background: rgba(0, 0, 0, 0.7);">
+    <img 
+      src="https://image.tmdb.org/t/p/w500{{ movie.poster_path }}" 
+      class="align-self-start mr-3 mb-3" 
+      alt="No Movie image"
+      style="width: 300px; height: 485px;"
+    >
+    <div class="media-body ml-2 mr-2">
+      <h2 class="mt-2" style="font-weight: bold;">{{ movie.title }}</h2>
+      <h5 class="mt-1" style="opacity: 0.5;">{{ movie.original_title }} | {{ movie.release_date.year }}</h5>
+      <hr class="accounts-hr-color">
+
+      <div class="my-2 base-btn-font">
+        <h5 style="display: inline-block;">평점: </h5>
+        <h5 id="vote-data" style="display: None;">{{ movie.vote_average }}</h5>
+        <h5 style="display: inline-block;">
+        <span id="star-2" class="fa fa-star base-color"></span>
+        <span id="star-4" class="fa fa-star base-color"></span>
+        <span id="star-6" class="fa fa-star base-color"></span>
+        <span id="star-8" class="fa fa-star base-color"></span>
+        <span id="star-10" class="fa fa-star base-color"></span>
+        ({{ movie.vote_count }})</h5>
+      </div>
+      {% if movie.overview|length > 0 %}
+        <p class="base-font">{{ movie.overview }}</p>
+      {% else %}
+        <a class="base-font review-write-go" href="{{ link }}">{{ link }}</a>
+      {% endif %}
+      {% comment %} 평점은 별모양으로 표기예정 {% endcomment %}
+      <hr>
+      {% comment %} 리뷰 버튼 {% endcomment %}
+      <hr>
+      <hr>
+    </div>
+  </div>
+  <hr class="accounts-hr-color m-0 p-0">
+{% comment %} 리뷰 리스트{% endcomment %}
+  <div style="background-color: rgba(0, 0, 0, 0.7);">
+  <br>
+  <div class="d-flex justify-content-between align-items-center">
+    <h2 class="ml-5 mb-0 base-brightcrimson base-title-font" style="display: inline-block;">리뷰</h2>
+    <div class="d-flex content-align-right">
+      <a class="btn back-btn btn-color-lightcrimson ml-auto btn-font mr-4" style="color: rgba(17, 5, 2, 1);" href="{% url 'community:create' movie.movie_id %}">
+        리뷰쓰기
+      </a>
+    </div>
+  </div>
+
+  <hr>
+    {% if articles|length %}
+      {% for article in articles %}
+        <ul class="mb-0">
+        {% comment %} <hr class="accounts-hr-color mr-5 mt-0"> {% endcomment %}
+        <a 
+          class="btn mb-0 review-read-go base-title-font" 
+          style="font-size: 18px;" 
+          href="{% url 'community:detail' article.pk %}"
+        >
+          ⭐{{ article.score }} | {{ article.title }} | {{ article.user.nickname }}
+        </a>
+        <br>
+        <br>
+        </ul>
+      {% endfor %}
+    {% else %}
+      <a 
+        class="btn ml-4 review-write-go"
+        href="{% url 'community:create' movie.movie_id %}"
+      >
+        첫 리뷰를 남겨주세요!
+      </a>
+    {% endif %}
+  </div>
+</div>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+<script>
+  // 별모양 속성부여하기
+  const background = document.querySelector('#vote-data')
+  const voteData = background.innerText
+  const voteNum = parseFloat(voteData)
+  console.log(voteNum)
+  for (let step = 2; step < voteNum; step++) {
+    const star = document.querySelector(`#star-${step}`)
+    star.setAttribute('class', 'fa fa-star checked')
+    console.log(step)
+    step++
+  }
+
+</script>
+
+{% endblock content %}
+
+

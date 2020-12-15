@@ -1,0 +1,13 @@
+{% if request.user.is_authenticated %}
+  <form class="comment-form" action="{% url 'community:comments_create' article.pk %}" method="POST">
+    {% csrf_token %}
+    <div class="input-group d-flex align-items-center justify-content-between">
+      <input type="text" name="content" maxlength="200" required id="id_content" class="form-control" placeholder="댓글을 입력해주세요" aria-describedby="button-addon2">
+      <div class="input-group-append">
+        <input class="btn icon-to-button-comment" type="submit" value="&#xf14a;" id="button-addon2" style="font-size: 3rem;">
+      </div>
+    </div>
+  </form>
+{% else %}
+  <a href="{% url 'accounts:login' %}" class="base-font">[댓글을 작성하려면 로그인 하세요.]</a>
+{% endif %}

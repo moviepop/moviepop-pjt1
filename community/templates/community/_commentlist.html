@@ -1,0 +1,29 @@
+<div id="comment-list-{{ article.pk }}">
+{% for comment in article.comment_set.all %}
+	<div>
+		<div class="d-flex justify-content-between">
+			<div>
+				<strong class="base-title-font h4">{{ comment.user }}</strong>
+				{% if comment.user == user %}
+					<!--댓글 삭제-->
+					<i class="far fa-trash-alt delete-comment icon-to-button-delete mx-1" id="delete-{{ comment.id }}" data-id="{{ comment.id }}"></i>
+					<!--댓글 수정-->
+					<i id="update-{{ comment.id }}" class="fas fa-edit update-comment icon-to-button-update ml-1" data-id="{{ comment.id }}"></i>
+				{% endif %}
+			</div>
+			<div class="" style="font-size: 0.8rem;">
+				<div>
+					댓글 생성 {{ comment.created_at|date:"Y/m/d H:i" }}
+				</div>
+				<div>
+					최근 수정 {{ comment.updated_at|date:"Y/m/d H:i" }}
+				</div>
+			</div>
+		</div>
+		<div>
+			<span class="base-font" style="font-size: large">{{ comment.content }}</span>
+		</div>
+		<br>
+	</div>
+{% endfor %}
+</div>

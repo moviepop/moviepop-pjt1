@@ -1,0 +1,108 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  MoviePop | 영화검색
+{% endblock title %}
+
+{% block content %}
+
+<style>
+.a-color-white{
+  color: rgba(255, 255, 255, 0.9);
+}
+.a-color-white:hover{
+  color: rgba(246, 75, 60, 0.7);
+}
+.title-color {
+  color: rgba(253, 186, 154, 1);
+}
+</style>
+
+  <div class="base-font title-color">
+    <h3>제목</h3>
+    <hr class="accounts-hr-color">
+    {% if title_related %}
+    <div class="list-group">
+      {% for movie in title_related %}
+        <div 
+          class="list-group-item list-group-item-action p-1 pl-3"
+          style="background-color: rgba(17, 5, 2, 1);"
+        >
+          <img 
+            src="https://image.tmdb.org/t/p/w500{{ movie.poster_path }}" 
+            alt="No poster image"
+            style="height: 50px; width: 30px; display: inline-block;"
+          >
+          <a 
+            href="{% url 'movies:detail' movie.movie_id %}"
+            class="btn a-color-white"
+            style="font-size: 20px; display: inline-block; width: 220px; white-space: nowrap; overflow: hidden;"
+          >
+          {{ movie.title }}
+          </a>
+        </div>
+      {% endfor %}
+    </div>
+    {% else %}
+      <h5 class="p-1 pl-3">검색결과가 없습니다.</h5>
+    {% endif %}
+
+    <hr>
+    <h3 class="title-color">줄거리</h3>
+    <hr class="accounts-hr-color">
+    {% if overview_related|length %}
+    <div class="list-group">
+    {% for movie in overview_related %}
+      <div
+        class="list-group-item list-group-item-action p-1 pl-3"
+        style="background-color: rgba(17, 5, 2, 1)"
+      >
+        <img 
+          src="https://image.tmdb.org/t/p/w500{{ movie.poster_path }}" 
+          alt="No poster image"
+          style="height: 50px; width: 30px; display: inline-block;"
+        >
+        <a
+          href="{% url 'movies:detail' movie.movie_id %}" 
+          class="btn a-color-white p-0"
+          style="display: inline-block; width: 220px; white-space: nowrap; overflow: hidden; font-weight: bold;"
+        >
+        {{ movie.title }}
+        </a>
+        <a 
+          class="btn a-color-white text-truncate"
+          href="{% url 'movies:detail' movie.movie_id %}" 
+          style="display: inline-block; width: 630px; white-space: nowrap;"
+        >
+           {{ movie.overview }}
+        </a>
+      </div>
+    {% endfor %}
+    </div>
+    {% else %}
+      <h5 class="p-1 pl-3">검색결과가 없습니다.</h5>
+    {% endif %}
+
+    <hr>
+    <h3>개봉일</h3>
+    <hr class="accounts-hr-color">
+    {% if date_related|length %}
+    <div class="list-group">
+      {% for movie in date_related %}
+          <a
+            href="{% url 'movies:detail' movie.movie_id %}" 
+            class="btn a-color-white"
+            style="display: inline-block; width: 200px; white-space: nowrap; font-weight: bold;"
+          >
+          {{ movie.title }} | {{ movie.release_date }}
+          </a>
+      {% endfor %}
+    </div>
+    {% else %}
+      <h5 class="p-1 pl-3">검색결과가 없습니다.</h5>
+    {% endif %}
+    <br>
+  </div>
+{% endblock content %}
+
+

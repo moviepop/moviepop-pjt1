@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  MoviePop | 회원가입
+{% endblock title %}
+
+{% block content %}
+<style>
+.btn-width{
+  width: 100px;
+  margin: 10px;
+}
+
+.flex-center-vertically{
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  height: 70px;
+}
+
+.btn-color-ivory{
+  background-color: rgba(253, 186, 154, 1);
+  border: none;
+}
+.btn-color-ivory:hover{
+  background-color: rgba(246, 75, 60, 1);
+  border: none;
+}
+
+</style>
+  <br>
+  <br>
+  <div class="base-brightcrimson base-font">
+    {% comment %} <h1 class="text-center base-darkcrimson base-title-font">회원가입</h1> {% endcomment %}
+    <div class="d-flex justify-content-center">
+        {% include 'accounts/_signup_form.html' %}
+        {% include 'accounts/_preference_movie_genre.html' %}
+        <div class="flex-center-vertically">
+          <input class="btn btn-color-ivory btn-width" type="submit" value="회원가입">
+          <button class="btn btn-secondary btn-width">취소</button>
+          <br>
+        </div>
+        <br>
+        <span>이미 MoviePop 계정이 있다면 ? </span>
+        <a href="{% url 'accounts:login' %}">로그인하기</a>
+      </form>
+    </div>
+    <br>
+  </div>
+{% endblock content %}

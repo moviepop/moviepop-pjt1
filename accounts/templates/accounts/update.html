@@ -1,0 +1,117 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  MoviePop | 정보수정
+{% endblock title %}
+
+{% block content %}
+
+<style>
+.userdetail{
+  margin: 0px auto;
+}
+.idnickname{
+  margin: 0px;
+  display: inline-block;
+}
+label{
+  display: inline-block;
+  width: 160px;
+  line-height: 50px;
+}
+label{
+  font-size: 1.5rem;
+  color: rgba(255, 255, 255, 1);
+}
+.input-check{
+  width: 20px;
+  height: 20px;
+  border-radius: 10px; 
+}
+.atag{
+  color: white;
+}
+.atag:hover{
+  color: rgba(246, 75, 60, 1);
+}
+a:hover{
+  text-decoration: None;
+  color: white;
+}
+.btn-width{
+  width: 100px;
+  margin: 10px;
+}
+.btn-center{
+  margin: 0px auto;
+}
+.button{
+  background-color: rgba(17, 5, 2, 1);
+  border: none;
+  color: white;
+}
+.btn-color-ivory{
+  background-color: rgba(253, 186, 154, 1);
+  border: none;
+}
+.btn-color-ivory:hover{
+  background-color: rgba(246, 75, 60, 1);
+  border: none;
+}
+.input-check:hover{
+  cursor: pointer;
+}
+</style>
+
+<br>
+
+<div class="accounts-form-width userdetail base-font base-ivory">
+  <hr class="accounts-hr-color">
+  <form action="" method="POST">
+    {% csrf_token %}
+    <h4 class="idnickname mr-4" style="width: 100px;"> My ID  </h4>
+    <h4 class="idnickname" style="width: 200px; color: white;">{{ user.username }}</h4>
+    <hr class="accounts-hr-color">
+    <h4 class="idnickname mr-4" style="width: 100px;">Name</h4>
+    {{ form.nickname }}
+    <hr class="accounts-hr-color">
+    <h4 class="idnickname mr-4" style="width: 100px;">비밀번호</h4>
+    <a href="../password/" class="h5 font-weight-bold atag">비밀번호 변경하기</a>
+    <hr class="accounts-hr-color">
+
+    <h5 class="font-weight-bold">선호하는 영화 장르</h5>
+    <br>
+    <div id="preference">
+      {{ form.preference }}
+    </div>
+
+    <div class="d-flex justify-content-center">
+    <input class="btn btn-color-ivory btn-width base-title-font" type="submit" value="수정완료">
+    <a class="btn btn-secondary btn-width base-title-font" href="{% url 'community:index' %}">취소</a>
+    </div>
+  </form>
+  <br>
+  <form action="{% url 'accounts:delete' %}" method="POST" class="idnickname">
+    {% csrf_token %}
+    <input class="button atag" type="submit" value="회원탈퇴하기">
+  </form>
+  <br>
+  <br>
+</div>
+
+<script>
+  const preferenceLists = document.querySelectorAll('#preference li')
+  preferenceLists.forEach((list, idx) => {
+    const spanTag = document.createElement('span')
+    spanTag.setAttribute('id', `id-${idx}`)
+    spanTag.innerHTML = list.innerHTML
+    list.parentNode.replaceChild(spanTag, list)
+    const labelTag = spanTag.firstChild
+    console.log(labelTag)
+    const inputTag = labelTag.firstChild
+    console.log(inputTag)
+    inputTag.setAttribute('class', 'input-check')
+  })
+</script>
+
+{% endblock content %}
