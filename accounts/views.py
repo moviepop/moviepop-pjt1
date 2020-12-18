@@ -14,9 +14,10 @@ from .forms import CustomUserChangeForm, CustomUserCreationForm
 
 # 인덱스별 장르 id(인기순위 순서)
 match = [28, 18, 53, 10749, 10751,
-        878, 14, 12, 35, 80,
-        9648, 16, 99, 36, 10752, 
-        27, 10402, 37, 10770]
+            878, 14, 12, 35, 80,
+            9648, 16, 99, 36, 10752, 
+            27, 10402, 37, 10770
+        ]
 
 
 # 선호도를 기준으로 선호도코드를 만드는 함수
@@ -118,8 +119,6 @@ def update(request):
             new_pref = user.preference
             pre_code = user.preference_code
             new_code = update_code(pre_pref, new_pref, pre_code)
-            # print(new_code, '#############')
-
             user.preference_code = new_code
             user.save()    
 
@@ -156,13 +155,6 @@ def change_password(request):
     return render(request, 'accounts/change_password.html', context)
 
 
-def show_pref(code):
-    pref_list = []
-    for co in code:
-        pref_list.append(int(co))
-    return pref_list
-
-
 @login_required
 @require_http_methods(['GET'])
 def detail(request, user_pk):
@@ -172,10 +164,10 @@ def detail(request, user_pk):
     request_user = request.user
     # 둘이 같은지 비교
     if article_user == request_user:
-        # 같다면
+        # 같다면 요청한 사용자의 정보
         user = request_user
     else:
-        # 다르다면
+        # 다르다면 글쓴이의 정보
         user = article_user
         
     articles = user.article_set.all()

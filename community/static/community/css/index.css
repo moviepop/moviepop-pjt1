@@ -1,0 +1,53 @@
+.list-group-item{
+  background-color: rgba(17, 5, 2, 1);
+  text-align: center;
+}
+
+.list-group-font{
+  font-family: 'Nanum Gothic', sans-serif;
+  font-size: x-large;
+  font-weight: 700;
+  color: rgba(253, 186, 154, 1);
+}
+
+.list-item-font{
+  font-family: 'Noto Sans KR', sans-serif;
+  font-size: large;
+  font-weight: 400;
+}
+
+.button{
+  border: none;
+  color: rgba(17, 5, 2, 1);
+  font-family: 'Nanum Gothic', sans-serif;
+  font-size: large;
+  font-weight: 700;
+}
+
+.btn-color-lightcrimson{
+  background-color: rgba(246, 75, 60, 0.7);
+  border: none;
+}
+
+.button:hover{
+  background-color: rgba(253, 186, 154, 1);
+}
+
+.list-link-item{
+color: white;
+}
+
+.list-link-item:hover{
+  text-decoration: None;
+  color: rgba(253, 186, 154, 1);
+}
+
+.page-font{
+  font-family: 'Noto Sans KR', sans-serif;
+  font-weight: 500;
+  font-size: large;
+}
+
+.white-line{
+  background-color: #ffffff;
+}

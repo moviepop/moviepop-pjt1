@@ -40,9 +40,10 @@ def index(request):
 
 def recommend_preference_algorithm(code):
     match = [28, 18, 53, 10749, 10751,
-            878, 14, 12, 35, 80,
-            9648, 16, 99, 36, 10752, 
-            27, 10402, 37, 10770]
+                878, 14, 12, 35, 80,
+                9648, 16, 99, 36, 10752, 
+                27, 10402, 37, 10770
+            ]
 
     pref_list = []
 
@@ -66,7 +67,6 @@ def recommend_preference_algorithm(code):
                 num += 1
         if num > 0:
             prefer_movie[num-1].append(movie)
-    # print('oh yeah', prefer_movie[4], prefer_movie[3], prefer_movie[2], prefer_movie[1])
 
     show_movie = []
     # 뽑아낸 선호장르 영화리스트에서 12개 뽑아내기
@@ -93,8 +93,6 @@ def preference(request):
     # 승인되지 않은 유저라면 로그인 요청하기
     else:
         return redirect('accounts:login')
-    # print('------------------')
-    # print(recommend_movie_list, type(recommend_movie_list))
 
     comment = '취향에 맞춰 추천해요!'
     context = {
@@ -238,9 +236,6 @@ def detail(request, movie_id):
     # 1. movie 인스턴스 생성
     # 2. movie.article.all() ? 로 전부 불러와서 article_list형태로 넘겨주기
     movie = Movie.objects.get(movie_id=movie_id)
-    # print(movie.release_date.year, type(movie.release_date))
-    print(movie.release_date.year, type(movie.release_date.year))
-    print(movie.title, type(movie.release_date.year))
     if len(movie.overview):
         link = ''
     else:
@@ -259,7 +254,6 @@ def search(request):
     keyword = str(request.GET.get('search'))
     # 1. 키워드 - 제목 필터링(title-str)
     title_related = Movie.objects.filter(title__contains=keyword)
-    print(title_related)
     # 2. 키워드 - 줄거리 필터링(overview-str)
     overview_related = Movie.objects.filter(overview__contains=keyword)
     # 3. 키워드 - 개봉일 필터링(release_date.-str로 변환해서 사용?)
@@ -275,7 +269,6 @@ def search(request):
 
 @api_view(['GET'])
 def search_title(request, searchword):
-    print(searchword)
     movies = Movie.objects.filter(title__contains=searchword)
     serializer = MovieSerializer(movies, many=True)
 
@@ -287,9 +280,7 @@ def search_title(request, searchword):
 def released_thisyear(request):
     # 현재년도 가져오기
     this_year = datetime.now().year
-    # print(this_year)
     movies = Movie.objects.filter(release_date__contains=this_year)
-    # print(len(movies))
     movie_list = []
     random_list = []
     # 3개씩 끊어서 보여주기(1~2개 단위로 끊기지 않게)
@@ -297,11 +288,8 @@ def released_thisyear(request):
         random_list = random.sample(range(len(movies)), len(movies) - (len(movies) % 3))
     else:
         random_list = random.sample(range(len(movies)), len(movies))
-    # print(random_list)
     for num in random_list:
         movie_list.append(movies[num])
-    # print(random_list)
-    # print(movie_list)
     comment = '올해 개봉한 영화에요!'
     context = {
         'recommend_movie_list': movie_list,
@@ -310,6 +298,7 @@ def released_thisyear(request):
     return render(request, 'movies/recommendation.html', context)
     
 
+# 장르별로 영화를 추출해 랜덤으로 12개씩 반환하는 함수
 def collect_genre_movie(genre_list):
     movies = Movie.objects.all()
     movie_list = []
@@ -325,7 +314,6 @@ def collect_genre_movie(genre_list):
 # 혼자보기 좋은영화 : 액션, SF, 다큐, 미스터리, 서부, 범죄, 전쟁
 def alone(request):
     genre_alone = [28, 878, 99, 9648, 37, 80, 10752]
-    # 보여줄 영화 갯수 제한하기(16개)
     movie_list = collect_genre_movie(genre_alone)
     comment = '혼자있다면 이 영화를 추천해요!'
     context = {
@@ -337,8 +325,8 @@ def alone(request):
 
 # 커플 : 로맨스, 코미디, 공포, 드라마, 스릴러, 음악
 def couple(request):
-    genre_alone = [10749, 35, 27, 10402, 18, 53]
-    movie_list = collect_genre_movie(genre_alone)
+    genre_couple = [10749, 35, 27, 10402, 18, 53]
+    movie_list = collect_genre_movie(genre_couple)
     comment = '연인과 함께 있다면?'
     context = {
         'recommend_movie_list': movie_list,
@@ -349,8 +337,8 @@ def couple(request):
 
 # 가족 : 드라마, 코미디, 가족, TV영화, 애니메이션, 판타지, 모험, 역사
 def together(request):
-    genre_alone = [18, 35, 10751, 10770, 16, 14, 12, 36]
-    movie_list = collect_genre_movie(genre_alone)
+    genre_together = [18, 35, 10751, 10770, 16, 14, 12, 36]
+    movie_list = collect_genre_movie(genre_together)
     comment = '가족과 함께라면 이 영화를 추천해요!'
     context = {
         'recommend_movie_list': movie_list,
