@@ -1,0 +1,19 @@
+.userdetail{
+  margin-left: auto;
+  margin-right: auto;
+  margin: 0px auto;
+}
+
+.idnickname{
+  margin: 0px;
+  display: inline-block;
+}
+
+.atag{
+  color: white;
+}
+
+a:hover{
+  text-decoration: None;
+  color: rgba(246, 75, 60, 0.7);
+}

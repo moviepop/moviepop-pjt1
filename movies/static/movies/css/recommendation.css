@@ -1,0 +1,35 @@
+.btn-color-ivory{
+  background-color: rgba(253, 186, 154, 0.5);
+  border: none;
+}
+
+.hover-img{
+  opacity: 0.5;
+}
+
+.hover-img:hover {
+  opacity: 1;
+}
+
+.bg-color{
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.img-size{
+  height: 100%;
+  width: 100%;
+}
+
+.div-size{
+  height: 500px;
+  width: 30%;
+}
+
+.text-bottom{
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.bottom-btn:hover{
+  background-color: rgba(253, 186, 154, 1);
+}

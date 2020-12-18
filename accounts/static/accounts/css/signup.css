@@ -1,0 +1,50 @@
+.btn-width{
+  width: 100px;
+  margin: 10px;
+}
+
+.flex-center-vertically{
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  height: 70px;
+}
+
+.btn-color-ivory{
+  background-color: rgba(253, 186, 154, 1);
+  border: none;
+}
+
+.btn-color-ivory:hover{
+  background-color: rgba(246, 75, 60, 1);
+  border: none;
+}
+
+.inline-block{
+  display: inline-block;
+}
+
+.input-size{
+  width: 82%;
+  height: 50px;
+  border-radius: 5px;
+}
+
+label{
+  display: inline-block;
+  width: 210px;
+  line-height: 50px;
+  font-size: 1.4rem;
+}
+
+.input-checkbox{
+  width: 20px;
+  height: 20px;
+  border-radius: 10px; 
+  margin: 5px;
+  color: white;
+}
+
+.input-checkbox:hover{
+  cursor: pointer;
+}
