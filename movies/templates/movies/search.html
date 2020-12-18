@@ -4,19 +4,14 @@
   MoviePop | 영화검색
 {% endblock title %}
 
-{% block content %}
 
-<style>
-.a-color-white{
-  color: rgba(255, 255, 255, 0.9);
-}
-.a-color-white:hover{
-  color: rgba(246, 75, 60, 0.7);
-}
-.title-color {
-  color: rgba(253, 186, 154, 1);
-}
-</style>
+{% load static %}
+{% block extrahead %}
+<link rel="stylesheet" href="{% static 'movies/css/search.css' %}">
+{% endblock extrahead %}
+
+
+{% block content %}
 
   <div class="base-font title-color">
     <h3>제목</h3>

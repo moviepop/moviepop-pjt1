@@ -31,7 +31,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['moviepop-myoung.herokuapp.com', 'localhost']
+ALLOWED_HOSTS = ['final-pjt-movieapp.herokuapp.com', 'localhost']
 
 
 # Application definition
@@ -97,11 +97,11 @@ WSGI_APPLICATION = 'final_pjt.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'sample_db',
-        'USER': 'myoung',
-        'PASSWORD': 'password',
+        'NAME': 'movieapp',
+        'USER': 'postgres',
+        'PASSWORD': 'dkseho13**',
         'HOST': '127.0.0.1',
-        'PORT': '5432',
+        'PORT': '1673',
     }
 }
 
@@ -146,6 +146,10 @@ USE_TZ = True
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 STATIC_URL = '/static/'
+
+STATICFILES_DIRS = [
+    BASE_DIR / 'final_pjt' / 'static',
+]
 
 AUTH_USER_MODEL = 'accounts.User'
 

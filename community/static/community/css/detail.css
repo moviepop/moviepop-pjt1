@@ -1,0 +1,110 @@
+.atag{
+  color: #ffffff;
+}
+
+a:hover{
+  text-decoration: None;
+  color: #fdba9a;
+}
+
+hr{
+  background-color: #ffffff;
+}
+
+.text-brown-color{
+  color: #ffffff;
+}
+
+.button{
+  background-color: none;
+  width: 5rem;
+  height: 2rem;
+  border: none;
+  color: rgba(17, 5, 2, 1);
+  font-family: 'Nanum Gothic', sans-serif;
+  font-size: large;
+  font-weight: 700;
+}
+
+.btn-color-lightcrimson{
+  background-color: rgba(246, 75, 60, 0.7);
+  border: none;
+}
+
+.button:hover{
+  background-color: rgba(253, 186, 154, 1);
+  color: rgba(17, 5, 2, 1);
+}
+
+.icon-to-button-update{
+  color: rgba(253, 186, 154, 0.6);
+  cursor: pointer;
+}
+
+.icon-to-button-update:hover{
+  color: rgba(200, 25, 18, 1);
+}
+
+.icon-to-button-delete{
+  background-color: rgba(17, 5, 2, 1); 
+  color: #1f6f8b;
+  cursor: pointer;
+}
+
+.icon-to-button-delete:hover{
+  color: rgba(200, 25, 18, 1);
+}
+
+
+.icon-to-button-comment{
+  background-color: rgba(17, 5, 2, 1); 
+  color: rgba(255, 255, 255, 0.5);
+  cursor: pointer;
+}
+
+.icon-to-button-comment:hover{
+  color: rgba(253, 186, 154, 1);
+}
+
+input[type="submit"] {
+  font-family: "Font Awesome 5 Free";
+  font-size: 1.3333333333333333em;
+  font-weight: 900;
+}
+
+.like-btn{
+  color: rgba(246, 75, 60, 1);
+}
+
+.like-btn:hover{
+  color: rgba(200, 25, 18, 1);
+}
+
+.back-btn{
+  border: none;
+  color: rgba(17, 5, 2, 1);
+  font-family: 'Nanum Gothic', sans-serif;
+  font-size: large;
+  font-weight: 700;
+}
+
+.back-btn:hover{
+  background-color: rgba(253, 186, 154, 1);
+}
+
+.page-font{
+  font-family: 'Noto Sans KR', sans-serif;
+  font-weight: 500;
+  font-size: large;
+}
+
+.overview {
+  margin-top: 0.2rem;
+  font-family: 'Noto Sans KR', sans-serif;
+  font-size: 0.8rem;
+  overflow: hidden;
+  white-space: wrap;
+  width: 300px;
+  height: 95px;
+  text-overflow: ellipsis;
+}
