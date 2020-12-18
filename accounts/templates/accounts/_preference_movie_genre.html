@@ -21,123 +21,30 @@ label{
 
 <h4 class="font-weight-bold">선호하는 영화 장르</h4>
 <p style="color: white;">모두 선택해주세요 (최소 1개, 최대 19개 가능)</p>
-<ul id="id_preference" class="mb-0" style="color: white">
-  <span>
-    <label for="id_preference_0">
-      <input class="input-checkbox" type="checkbox" name="preference" value="12" id="id_preference_0">
-      모험
-    </label>
-  </span>
-  <span>
-    <label for="id_preference_1">
-      <input class="input-checkbox" type="checkbox" name="preference" value="14" id="id_preference_1">
-      판타지
-    </label>
-  </span>
-  <span>
-    <label for="id_preference_2">
-      <input class="input-checkbox" type="checkbox" name="preference" value="16" id="id_preference_2">
-      애니메이션
-    </label>
-  </span>
-  <span>
-    <label for="id_preference_3">
-      <input class="input-checkbox" type="checkbox" name="preference" value="18" id="id_preference_3">
-      드라마
-    </label>
-  </span>
-  <br>
-  <span>
-    <label for="id_preference_4">
-      <input class="input-checkbox" type="checkbox" name="preference" value="27" id="id_preference_4">
-      공포
-    </label>
-  </span>
-  <span>
-    <label for="id_preference_5">
-      <input class="input-checkbox" type="checkbox" name="preference" value="28" id="id_preference_5">
-      액션
-    </label>
-  </span>
-  <span>
-    <label for="id_preference_6">
-      <input class="input-checkbox" type="checkbox" name="preference" value="35" id="id_preference_6">
-      코미디
-    </label>
-  </span>
-  <span>
-    <label for="id_preference_7">
-      <input class="input-checkbox" type="checkbox" name="preference" value="36" id="id_preference_7">
-      역사
-    </label>
-  </span>
-  <br>
-  <span>
-    <label for="id_preference_8">
-      <input class="input-checkbox" type="checkbox" name="preference" value="37" id="id_preference_8">
-      서부
-    </label>
-  </span>
-  <span>
-    <label for="id_preference_9">
-      <input class="input-checkbox" type="checkbox" name="preference" value="53" id="id_preference_9">
-      스릴러
-    </label>
-  </span>
-  <span>
-    <label for="id_preference_10">
-      <input class="input-checkbox" type="checkbox" name="preference" value="80" id="id_preference_10">
-      범죄
-    </label>
-  </span>
-  <span>
-    <label for="id_preference_11">
-      <input class="input-checkbox" type="checkbox" name="preference" value="99" id="id_preference_11">
-      다큐멘터리
-    </label>
-  </span>
-  <br>
-  <span>
-    <label for="id_preference_12">
-      <input class="input-checkbox" type="checkbox" name="preference" value="878" id="id_preference_12">
-      SF
-    </label>
-  </span>
-  <span>
-    <label for="id_preference_13">
-      <input class="input-checkbox" type="checkbox" name="preference" value="9648" id="id_preference_13">
-      미스터리
-    </label>
-  </span>
-  <span>
-    <label for="id_preference_14">
-      <input class="input-checkbox" type="checkbox" name="preference" value="10402" id="id_preference_14">
-      음악
-    </label>
-  </span>
-  <span>
-    <label for="id_preference_15">
-      <input class="input-checkbox" type="checkbox" name="preference" value="10749" id="id_preference_15">
-      로맨스
-    </label>
-  </span>
-  <br>
-  <span>
-    <label for="id_preference_16">
-      <input class="input-checkbox" type="checkbox" name="preference" value="10751" id="id_preference_16">
-      가족
-    </label>
-  </span>
-  <span>
-    <label for="id_preference_17">
-      <input class="input-checkbox" type="checkbox" name="preference" value="10752" id="id_preference_17">
-      전쟁
-    </label>
-  </span>
-  <span>
-    <label for="id_preference_18">
-      <input class="input-checkbox" type="checkbox" name="preference" value="10770" id="id_preference_18">
-      TV영화
-    </label>
-  </span>
-</ul>
+<ul id="id_preference" class="mb-0" style="color: red"></ul>
+
+<script>
+  const addGenres = document.querySelector('#id_preference')
+  const genres = [
+    ['모험', 12], ['판타지', 14], ['애니메이션', 16], ['드라마', 18], 
+    ['공포', 27], ['액션', 28], ['코미디', 35], ['역사', 36],
+    ['서부', 37], ['스릴러', 53], ['범죄', 80], ['다큐멘터리', 99], 
+    ['SF', 878], ['미스터리', 9648], ['음악', 10402], ['로맨스', 10749], 
+    ['가족', 10751], ['전쟁', 10752], ['TV영화', 10770]
+  ]
+
+  let addGenreList = ""
+  genres.forEach((genre, index) => {
+    const addGenre = `
+        <span>
+          <label for="id_preference_${index}">
+            <input class="input-checkbox" type="checkbox" name="preference" value="${genre[1]}" id="id_preference_${index}">
+            ${genre[0]}
+          </label>
+        </span>
+      `
+    addGenreList += addGenre
+  })
+
+  addGenres.innerHTML = addGenreList
+</script>
