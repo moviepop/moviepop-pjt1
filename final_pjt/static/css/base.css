@@ -263,3 +263,7 @@ background-color: rgba(253, 186, 154, 0.1);
     font-weight:600
   }
 }
+
+.base-logo-link:hover {
+  color: rgba(246, 75, 60, 1);
+}
