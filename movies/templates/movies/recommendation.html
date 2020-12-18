@@ -4,40 +4,14 @@
   MoviePop | 추천영화
 {% endblock title %}
 
+<head>
+  {% block extrahead %}
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'movies/css/recommendation.css' %}">
+  {% endblock extrahead %}
+</head>
+
 {% block content %}
-
-<style>
-.btn-color-ivory{
-  background-color: rgba(253, 186, 154, 0.5);
-  border: none;
-}
-.hover-img{
-  opacity: 0.5;
-}
-.hover-img:hover {
-  opacity: 1;
-}
-.bg-color{
-  background-color: rgba(0, 0, 0, 0.7);
-}
-.img-size{
-  height: 100%;
-  width: 100%;
-}
-.div-size{
-  height: 500px;
-  width: 30%;
-}
-.text-bottom{
-  display: table-cell;
-  vertical-align: middle;
-}
-.bottom-btn:hover{
-  background-color: rgba(253, 186, 154, 1);
-}
-
-
-</style>
 <br>
 <h3 class="base-font">{{ comment }}</h3>
 <br>
@@ -85,13 +59,6 @@
   {% endfor %}
 </div>
 
-<script>
-  const movieCards = document.querySelectorAll('.movie-card')
-  movieCards.forEach(card => {
-    card.addEventListener('mouseover', event => {
-      console.log(event)
-    })
-  })
-</script>
+<script rel="stylesheet" src="{% static 'movies/js/recommendation.js' %}"></script>
 
 {% endblock content %}

@@ -1,0 +1,55 @@
+.base-color{
+  color: rgba(255, 255, 255, 0.7);
+  opacity: 0.5;
+}
+
+.checked{
+  color: rgba(253, 186, 154, 1);
+}
+
+/* .bg-img{
+  background: url(https://image.tmdb.org/t/p/w500{{ movie.backdrop_path }})
+  no-repeat fixed 50% 50%/ 100% 100%;
+} */
+
+.button{
+  background-color: none;
+  width: 5rem;
+  height: 2rem;
+  border: none;
+  color: rgba(17, 5, 2, 1);
+  font-family: 'Nanum Gothic', sans-serif;
+  font-size: large;
+  font-weight: 700;
+}
+
+.btn-color-lightcrimson{
+  background-color: rgba(246, 75, 60, 0.7);
+  border: none;
+}
+
+.btn-color-lightcrimson:hover{
+  background-color: rgba(253, 186, 154, 1);
+  border: none;
+}
+
+.btn-font{
+  font-family: 'Noto Sans KR', sans-serif;
+  font-weight: 500;
+  font-size: large;
+}
+
+.review-write-go{
+  color: #ffffff;
+}
+
+.review-write-go:hover{
+  color: rgba(253, 186, 154, 1);
+}
+
+.review-read-go{
+  color: #ffffff;
+}
+.review-read-go:hover{
+  color: rgba(246, 75, 60, 1);
+}

@@ -4,64 +4,14 @@
   MoviePop | 정보수정
 {% endblock title %}
 
-{% block content %}
+<head>
+  {% block extrahead %}
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'accounts/css/update.css' %}">
+  {% endblock extrahead %}
+</head>
 
-<style>
-.userdetail{
-  margin: 0px auto;
-}
-.idnickname{
-  margin: 0px;
-  display: inline-block;
-}
-label{
-  display: inline-block;
-  width: 160px;
-  line-height: 50px;
-}
-label{
-  font-size: 1.5rem;
-  color: rgba(255, 255, 255, 1);
-}
-.input-check{
-  width: 20px;
-  height: 20px;
-  border-radius: 10px; 
-}
-.atag{
-  color: white;
-}
-.atag:hover{
-  color: rgba(246, 75, 60, 1);
-}
-a:hover{
-  text-decoration: None;
-  color: white;
-}
-.btn-width{
-  width: 100px;
-  margin: 10px;
-}
-.btn-center{
-  margin: 0px auto;
-}
-.button{
-  background-color: rgba(17, 5, 2, 1);
-  border: none;
-  color: white;
-}
-.btn-color-ivory{
-  background-color: rgba(253, 186, 154, 1);
-  border: none;
-}
-.btn-color-ivory:hover{
-  background-color: rgba(246, 75, 60, 1);
-  border: none;
-}
-.input-check:hover{
-  cursor: pointer;
-}
-</style>
+{% block content %}
 
 <br>
 
@@ -99,19 +49,6 @@ a:hover{
   <br>
 </div>
 
-<script>
-  const preferenceLists = document.querySelectorAll('#preference li')
-  preferenceLists.forEach((list, idx) => {
-    const spanTag = document.createElement('span')
-    spanTag.setAttribute('id', `id-${idx}`)
-    spanTag.innerHTML = list.innerHTML
-    list.parentNode.replaceChild(spanTag, list)
-    const labelTag = spanTag.firstChild
-    console.log(labelTag)
-    const inputTag = labelTag.firstChild
-    console.log(inputTag)
-    inputTag.setAttribute('class', 'input-check')
-  })
-</script>
+<script rel="stylesheet" src="{% static 'accounts/js/update.js' %}"></script>
 
 {% endblock content %}
