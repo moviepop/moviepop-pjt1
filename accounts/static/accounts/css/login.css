@@ -1,0 +1,9 @@
+input{
+  height: 50px;
+  outline: None;
+
+}
+#loginform{
+  left: 50%;
+  width: 400px;
+}
