@@ -1,0 +1,30 @@
+<!-- Modal -->
+<div class="modal fade" id="trailerModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog d-flex justify-content-center" role="document">
+    <div class="modal-content" style="background-color: rgba(17, 5, 2, 0.8); width: 52rem;">
+      <div class="modal-header">
+        <h5 class="text-center modal-title base-title-font" id="exampleModalLabel" style="color: white;">{{ movie.title }}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="color: #ffffff;">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body d-flex justify-content-center align-items-center">
+        <iframe 
+          src="//{{ VIDEO_URL }}"
+          frameborder="0" 
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+          allowfullscreen
+          style="height: 30rem; width: 48rem;"
+        >
+        </iframe>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-color-lightcrimson base-title-font" data-dismiss="modal">Close</button>
+        <a href="//www.youtube.com/results?search_query={{ movie.title }}">
+          <button type="button" class="btn btn-color-lightcrimson base-title-font">다른 영상 보기
+          </button>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
