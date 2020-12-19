@@ -1,8 +1,10 @@
+const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value
+
+// 좋아요 기능
 const like_form = document.querySelector('.like-form')
 like_form.addEventListener('submit', function (event) {
   event.preventDefault()
   const articleId = event.target.dataset.articleId
-  const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value
 
   axios.post(`/community/${articleId}/like/`, {}, {
     headers: {
@@ -27,13 +29,13 @@ like_form.addEventListener('submit', function (event) {
     }
   })
 })
+
 // 댓글 삭제
 const commentDeleteButtons = document.querySelectorAll('.delete-comment')      
 commentDeleteButtons.forEach(btn => {
   btn.addEventListener('click', event => {
-    const BASE_URI = event.srcElement.baseURI
+    const BASE_URI = event.target.baseURI
     const commentId = btn.dataset.id
-    const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value
 
     axios.post(`${BASE_URI}comments/${commentId}/delete/`, {}, {
       headers: {
@@ -43,13 +45,6 @@ commentDeleteButtons.forEach(btn => {
       .then(res => {
         const articleId = res.data.article_id
         const comment = event.path[3]
-        //console.log('event')
-        //console.log(event)
-        //console.log(comment)
-        //console.log('parent')
-        //console.log(comment.parentNode)
-        console.log(comment)
-        console.log(comment.parentNode)
         comment.parentNode.removeChild(comment)
         const count = res.data.count            
         const commentCount = document.querySelector(`#comment-count-${ articleId }`)
@@ -101,13 +96,6 @@ commentForms.forEach(form => {
             </br>
           </div>
           `
-          /*
-          `<li>
-              <strong>${ comment.username }</strong> | <span>${ comment.content }</span>
-              <button id="delete-${ comment.id }" class="delete-comment" data-id="${ comment.id }">댓글 삭제</button>
-              <button id="update-${ comment.id }" class="update-comment" data-id="${ comment.id }">댓글 수정</button>
-            </li>`
-          */
         commentList.insertAdjacentHTML('beforeEnd', newComment)
         event.target.reset()
         const count = res.data.count
@@ -121,7 +109,6 @@ commentForms.forEach(form => {
 
         // 댓글 생성 후 바로 지울 때
         const commentDeleteButton = document.querySelector(`#delete-${ comment.id }`)
-        const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value
         commentDeleteButton.addEventListener('click', event => {
           axios.post(`/community/${ comment.article_id }/comments/${ comment.id }/delete/`, {}, {
             headers: 
@@ -160,7 +147,6 @@ commentForms.forEach(form => {
           updateCompleteButton.classList.add('fas')
           updateCompleteButton.classList.add('fa-edit')
           updateCompleteButton.classList.add('icon-to-button-update')
-          //updateCompleteButton.innerText = '수정완료'
           const timeZone = event.path[2].children[1]
           timeZone.setAttribute('style', 'display: None;')
 
@@ -203,19 +189,18 @@ commentForms.forEach(form => {
 const updateButtons = document.querySelectorAll(".update-comment")
 updateButtons.forEach(button => {
   button.addEventListener('click', event => {
-    //const parentNode = event.target.parentNode
-    console.log('hi')
+    console.log(event.target)
     const parentNode = event.target.parentElement.parentNode.nextSibling.nextSibling
-    //console.log(event.target.parentElement.parentNode.nextSibling.nextSibling.children[0])
-    const text = parentNode.children[0]
-    //console.log(text)
+    console.log('3###')
+    console.log(parentNode)
+    // const text = parentNode.children[0]
+    const text = parentNode.querySelector('span')
     const input = document.createElement('input')
     input.value = text.innerText
     const commentId = button.dataset.id
 
     input.classList.add(`commentUpdateForm-${ commentId }`)
     parentNode.replaceChild(input, text)
-    console.log(event)
     const updateParrent = event.path[0].parentNode
     const updateButton = event.path[0]
     const updateCompleteButton = document.createElement('i')
@@ -225,16 +210,14 @@ updateButtons.forEach(button => {
     updateCompleteButton.classList.add('fas')
     updateCompleteButton.classList.add('fa-edit')
     updateCompleteButton.classList.add('icon-to-button-update')
-    //updateCompleteButton.innerText = '수정완료'
     const timeZone = event.path[2].children[1]
     timeZone.setAttribute('style', 'display: None;')
 
     updateCompleteButton.addEventListener('click', event => {
-      const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value
-      const baseURI = event.path[2].baseURI
+      const baseURI = event.target.baseURI
       const content = input.value
       data = { content }
-      axios.post(`${baseURI}comments/${ commentId }/update/`, data, {
+      axios.post(`${ baseURI }comments/${ commentId }/update/`, data, {
           headers: 
             { 'X-CSRFToken': csrftoken }
         })
