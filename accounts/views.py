@@ -12,7 +12,8 @@ from django.contrib.auth import update_session_auth_hash
 from .forms import CustomUserChangeForm, CustomUserCreationForm
 
 
-# 인덱스별 장르 id(인기순위 순서)
+# 인덱스별 장르 id
+# 인덱스에 따른 배치순서는 좋아하는 장르 통계 참고
 match = [28, 18, 53, 10749, 10751,
             878, 14, 12, 35, 80,
             9648, 16, 99, 36, 10752, 
@@ -20,8 +21,9 @@ match = [28, 18, 53, 10749, 10751,
         ]
 
 
-# 선호도를 기준으로 선호도코드를 만드는 함수
-def make_code(lis):
+# 선호도 코드는 스트링형태로 저장
+# 코드변환시에 int형태로 변환 후 수정
+def make_pref_code(lis):
     idx_list = []
     for li in lis:
         idx_list.append(match.index(int(li)))
@@ -31,7 +33,6 @@ def make_code(lis):
     return code
 
 
-# Create your views here.
 @require_http_methods((['GET', 'POST']))
 def signup(request):
     if request.user.is_authenticated:
@@ -41,16 +42,13 @@ def signup(request):
         form = CustomUserCreationForm(request.POST)
         if form.is_valid():
             user = form.save()
-
-            # 선호장르 리스트를 선호도 코드에 넣기
-            # 1. 밑의 함수에 넣을 변수를 user.preference에서 뽑아낸다.
+            # 1. user.preference => 리스트 자료형
             pre_list = user.preference
-            # 2. 여기서 user의 preference_code 속성에 넣어줄 값을 계산(함수를 호출)
-            pre_code = make_code(pre_list)
-            # 3. 다시 저장한다.
+            # 2. 리스트 자료형 => 선호도 문자열 코드로 변환
+            pre_code = make_pref_code(pre_list)
+            # 3. 사용자 정보에 저장
             user.preference_code = pre_code
             user.save()
-            
             auth_login(request, user)
             return redirect('community:index')
     else:
@@ -88,11 +86,12 @@ def logout(request):
 def update_code(pre, new, code):
     pre_idx = []
     new_idx = []
+    # 리스트 형태로 전달된 이전, 이후 선호도의 idx를 추출
     for li in pre:
         pre_idx.append(match.index(int(li)))
     for li in new:
         new_idx.append(match.index(int(li)))
-    # 이전 선호도 초기화
+    # 추출된 인덱스 부분을 수정한다.
     for idx in pre_idx:
         # 에러 방지(2보다 작을 때 2를 빼면 필드범위를 벗어남 [1~9])
         if int(code[idx]) > 2:
@@ -108,16 +107,16 @@ def update_code(pre, new, code):
 @require_http_methods(['GET', 'POST'])
 def update(request):
     if request.method == 'POST':
-        # 유저의 이전 선호도
+        # 1. 유저의 이전 선호도를 변수에 저장
         pre_pref = request.user.preference
-
         form = CustomUserChangeForm(request.POST, instance=request.user)
         if form.is_valid():
+            # 2. form에 새로 기입된 선호도가 user정보에 반영
             user = form.save()
-            
-            # preference_code 업데이트 
+            # 3. user.preference는 새로반영된 선호도
             new_pref = user.preference
             pre_code = user.preference_code
+            # 4. 이전 선호도 초기화 => 새로운 선호도 반영
             new_code = update_code(pre_pref, new_pref, pre_code)
             user.preference_code = new_code
             user.save()    
@@ -162,12 +161,10 @@ def detail(request, user_pk):
     # 2. 작성한 글, 댓글, 추천
     article_user = User.objects.get(pk=user_pk)
     request_user = request.user
-    # 둘이 같은지 비교
+    # 사용자, 글쓴이 정보 구별
     if article_user == request_user:
-        # 같다면 요청한 사용자의 정보
         user = request_user
     else:
-        # 다르다면 글쓴이의 정보
         user = article_user
         
     articles = user.article_set.all()
