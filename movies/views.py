@@ -242,12 +242,25 @@ def detail(request, movie_id):
         link = ''
     else:
         link = return_link(movie.title, movie.release_date.year)
+    # API 요청
+    import requests
+    BASE_URL = 'https://www.googleapis.com/youtube/v3/search?'
+    API_KEY = 'AIzaSyBBeOXlAPUSMZEHEo_7BlEdjFoRDfgeIV0'
+    REQUEST_URL = BASE_URL + 'part=snippet' + f'&key={API_KEY}' + f'&q=movie%20{movie.original_title}%20trailer'  
+    response = requests.get(REQUEST_URL)
+    response = response.json()
+    videoID = response["items"][0]["id"]["videoId"]
+    print(videoID)
+
+    VIDEO_URL = 'www.youtube.com/embed/' + videoID
+    print(VIDEO_URL)
 
     articles = movie.article_set.all()
     context = {
         'movie': movie,
         'articles': articles,
         'link': link,
+        'VIDEO_URL': VIDEO_URL,
     }
     return render(request, 'movies/movie_detail.html', context)
 

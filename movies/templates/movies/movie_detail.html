@@ -56,6 +56,11 @@
   <div class="d-flex justify-content-between align-items-center">
     <h2 class="ml-5 mb-0 base-brightcrimson base-title-font" style="display: inline-block;">리뷰</h2>
     <div class="d-flex content-align-right">
+      {% include 'movies/_movie_trailer.html' %}
+
+      <a class="btn back-btn btn-color-lightcrimson ml-auto btn-font mr-4" style="color: rgba(17, 5, 2, 1);" data-toggle="modal" data-target="#trailerModal">
+        예고편 보기
+      </a>
       <a class="btn back-btn btn-color-lightcrimson ml-auto btn-font mr-4" style="color: rgba(17, 5, 2, 1);" href="{% url 'community:create' movie.movie_id %}">
         리뷰쓰기
       </a>
