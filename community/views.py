@@ -28,10 +28,6 @@ def index(request):
     posts = paginator.get_page(page)
     startpostnumber = 1
     endpostnumber = len(articles)
-    # print('##################')
-    # print(len(posts))
-    # print('@@@@@@@@@@@')
-    # print(page, type(page))
     try:
         if int(page):
             if len(articles):
@@ -66,22 +62,21 @@ def index(request):
 
 # 점수 계산 함수(장르선호도, 평점)
 def cal(genre_pref, sco):
+    # 몫을 계산하는 이유는 float은 string으로 전환되지 않기 때문이다.
     genre_pref = (genre_pref + sco) // 2
     return str(genre_pref)
 
 
 # 평점을 선호코드에 반영하는 알고리즘
 def score_pref_algorithm(score, code, genres):
-    print(score, code, genres)
     # index 추출
     genre_idx = []
     for genre in genres:
-        print(genre)
         genre_idx.append(match.index(int(genre.genre_id)))
-    # score를 코드에 반영하기
     for idx in genre_idx:
         code = code[:idx] + cal(int(code[idx]), score) + code[idx+1:]
     # 영화 한편 시청시 관련없는 장르는 관심도 1씩 감소
+    # 이유) 최근 시청한 영화에 가중치를 주기위해서
     for code_seq in range(19):
         if int(code[code_seq]) > 3 and code_seq not in genre_idx:
             code = code[:code_seq] + str(int(code[code_seq])-1) + code[code_seq+1:]
@@ -99,7 +94,7 @@ def create(request, movie_id):
             article.user = request.user
             article.movie = Movie.objects.get(movie_id=movie_id)
             article.save()
-            # 2-1. 평점정보에, 유저정보에서 필요한 정보 추출(평점, 선호코드)
+            # 2-1. 유저정보에서 필요한 정보를 추출(평점, 선호코드)
             user_score = article.score
             user_pref_code = request.user.preference_code
             movie_genres = article.movie.genres.all()
@@ -150,7 +145,7 @@ def detail(request, pk):
 def update_cal(genre_pref, prev, new):
     genre_pref *= 2
     # 기존 점수가 높았는데 한동안 해당 장르를 안보다가 평점을 낮게 수정하면 오류발생
-    # ex) 9점 부여 => 관심도 3까지 떨어졌을때 평점을 2점으로 수정
+    # ex) 9점 부여 => 이후에 관심도 3까지 떨어졌을때 글의 평점을 2점으로 수정
     # (3 - 9 + 2) // 2 => -2 이므로 오류 발생 => 음수일 경우 0으로 변경
     if (genre_pref - prev + new) // 2 < 0:
         new_pref = 0
@@ -160,7 +155,7 @@ def update_cal(genre_pref, prev, new):
 
 
 # 업데이트된 스코어 => 선호코드 반영 함수
-def updated_score_pref_algorithm(prev, new, code, genres):
+def updated_score_pref(prev, new, code, genres):
     # 1. 기존 선호코드 idx 추출
     # 2. idx별 장르 선호도에 2를 곱한뒤 prev_score를 뺀다.
     # 3. new_score를 더한뒤 2로 나눈다.
@@ -189,7 +184,7 @@ def update(request, pk):
                 new_rvw_score = article.score
                 prev_user_pref = request.user.preference_code
                 # 함수실행
-                new_user_pref = updated_score_pref_algorithm(
+                new_user_pref = updated_score_pref(
                     prev_rvw_score,
                     new_rvw_score,
                     prev_user_pref,
@@ -220,10 +215,8 @@ def delete(request, pk):
     return redirect('community:detail', article.pk)
 
 def number_length(num):
-    # print(num)
     if len(str(num)) == 1:
         num = '0' + str(num)
-    # print(num)
     return num
 
 def transtime(year, month, day, hour, minute):

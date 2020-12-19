@@ -48,6 +48,8 @@ def recommend_preference_algorithm(code):
     pref_list = []
 
     # 선호도 코드에서 장르 뽑아내는 알고리즘(선호장르 5개)
+    # 5개를 뽑는 이유는 평균적으로 영화가 2개정도의 장로가 혼합
+    # 10개 정도의 장르적 특징을 가지는 영화를 제공 (5 Combination 2)
     for cnt in range(9, 0, -1):
         for prefer in range(len(code)):
             if int(code[prefer]) == cnt:
