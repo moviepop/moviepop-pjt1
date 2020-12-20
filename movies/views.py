@@ -175,13 +175,17 @@ def return_link(title, date):
     soup = BeautifulSoup(html, "html.parser")
     try:
         search_link = soup.find("div", class_="title_area")
-        detail_link = search_link.find("a")["href"]
-        req2 = requests.get(detail_link)
-        html2 = req2.text
-        soup2 = BeautifulSoup(html2, "html.parser")
-        overview = soup2.find("p", class_="con_tx")
+        try:
+            detail_link = search_link.find("a")["href"]
+            req2 = requests.get(detail_link)
+            html2 = req2.text
+            soup2 = BeautifulSoup(html2, "html.parser")
+            overview = soup2.find("p", class_="con_tx")
+            return overview
+        except:
+            overview = ''
+            return overview
 
-        return overview
 
     except AttributeError as e:
         url = BASE_URL + title
