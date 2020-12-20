@@ -223,7 +223,7 @@ def transtime(year, month, day, hour, minute):
     # 월별 마지막 일
     monthday = [0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
     # 윤달인 경우
-    if year % 4:
+    if (year % 4 == 0 and year % 100) or year % 400 == 0:
         monthday[2] = 29
     # 영국시간 => 한국시간
     hour += 9
