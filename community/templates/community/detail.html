@@ -29,9 +29,10 @@
           <div class="base-font">최근 수정일 {{ article.updated_at|date:"Y년 M d일 H:i" }}</div>
         </div>
       </div>
+      <div class="h5 text-brown-color base-title-font">후기 | {{ score }}</div>
     <br>
 
-    <div class="d-flex justify-content-center">
+    <div class="d-flex justify-content-left">
       <div class="card mb-3" style="max-width: 540px; background-color: rgba(255, 255, 255, 0.2); border-radius: 1rem;">
         <div class="row no-gutters">
           <div class="col-md-4">
@@ -56,12 +57,23 @@
         </div>
       </div>
     </div>
-
+    <hr>
 
       <div class="base-font base-ivory">
-        <div class="h5 text-brown-color base-title-font">후기 | {{ score }}</div>
+        {% comment %} <div class="h5 text-brown-color base-title-font">후기 | {{ score }}</div> {% endcomment %}
         <br>
-        <p class="text-brown-color base-font">{{ article.content }}</p>
+        {% if article.image %}
+          <div class="d-flex justify-content-center">
+            <img 
+              class="d-flex justify-content-center"
+              src="{{ article.image.url }}" 
+              alt="{{ article.image }}"
+              width="700rem" 
+            >
+          </div>
+        {% endif %}
+        <br>
+        <p class="text-brown-color base-font h5" style="line-height: 2rem;">{{ article.content }}</p>
       </div>
       <div class="d-flex justify-content-end align-items-center">
         {% if request.user == article.user %}
@@ -78,6 +90,7 @@
         {% endif %}
       </div>
     </div>
+
     <div class="text-brown-color">
       {% include 'community/_like.html' %}
       <br>

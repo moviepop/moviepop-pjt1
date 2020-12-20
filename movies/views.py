@@ -1,5 +1,6 @@
 import random
 import requests
+import os
 from datetime import datetime
 
 from .models import Movie, Genre
@@ -251,6 +252,7 @@ def detail(request, movie_id):
     response = response.json()
     videoID = response["items"][0]["id"]["videoId"]
     print(videoID)
+    
 
     VIDEO_URL = 'www.youtube.com/embed/' + videoID
     print(VIDEO_URL)

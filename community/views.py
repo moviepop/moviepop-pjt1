@@ -6,7 +6,7 @@ from django.core.paginator import Paginator
 
 from .models import Article, Comment
 from movies.models import Movie
-from .forms import ArticleCreationForm, ArticleUpdateForm, CommentForm, ArticleMovieCreationForm
+from .forms import CommentForm, ArticleMovieCreationForm, ArticleUpdateForm
 
 from django.http import JsonResponse
 
@@ -88,7 +88,7 @@ def score_pref_algorithm(score, code, genres):
 def create(request, movie_id):
     movie = Movie.objects.get(movie_id=movie_id)
     if request.method == 'POST':
-        form = ArticleMovieCreationForm(request.POST)
+        form = ArticleMovieCreationForm(request.POST, request.FILES)
         if form.is_valid():
             article = form.save(commit=False)
             article.user = request.user

@@ -69,19 +69,11 @@ def login(request):
         if form.is_valid():
             auth_login(request, form.get_user())
             return redirect(request.GET.get('next') or 'community:index')
-        # else:
-        #     form = AuthenticationForm()
-        #     error_message = "로그인에 실패하셨습니다."
-        #     context = {
-        #         'form': form,
-        #         'error_message': error_message,
-        #     }
     else:
         form = AuthenticationForm()
     context = {
         'form': form,
     }
-    print(form.errors)
     return render(request, 'accounts/login.html', context)
 
 
