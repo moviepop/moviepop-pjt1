@@ -13,13 +13,15 @@ contentForm.setAttribute('rows', '9')
 contentForm.setAttribute('placeholder', '내용을 입력해주세요.')
 
 // 평점 입력 폼
-console.log('hi')
 const scoreForm = inputForm.children[6].children[0]
-console.log('#####')
-console.log(scoreForm)
-scoreForm.setAttribute('class', 'form-control m-0')
+scoreForm.setAttribute('class', 'dropdown form-control m-0 col-6')
 scoreForm.setAttribute('style', 'display: inline-block;')
 scoreForm.setAttribute('placeholder', '평점을 입력해주세요.')
+
+// 사진 입력 폼
+const imageForm = inputForm.children[6].children[1]
+imageForm.setAttribute('class', 'btn m-0 p-0 col-5')
+imageForm.setAttribute('style', 'display: inline-block;')
 
 // 버튼 호버링
 const aHover = document.querySelectorAll('#hover')
