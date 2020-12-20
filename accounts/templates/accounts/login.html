@@ -23,6 +23,21 @@
                 (없는 계정이거나 비밀번호를 틀렸을 경우)
                 따로 공지가 없다. -> 수정하기
   {% endcomment %}
+    {% if form.errors %}
+        {% for field in form %}
+            {% for error in field.errors %}  <!-- 필드 오류를 출력한다. -->
+                <div class="alert alert-danger">
+                    <strong>{{ field.label }}</strong>
+                    {{ error }}
+                </div>
+            {% endfor %}
+        {% endfor %}
+        {% for error in form.non_field_errors %}   <!-- 넌필드 오류를 출력한다. -->
+            <div class="alert alert-danger">
+                <strong>{{ error }}</strong>
+            </div>
+        {% endfor %}
+    {% endif %}
     <div class="text-center">
       {% csrf_token %}
       <div class="input-group mb-2">
@@ -50,6 +65,7 @@
         class="btn btn-warning mt-3" 
         type="submit" 
         value="로그인"
+        data-target="#loginModal"
       >
       <br>
       <br>
