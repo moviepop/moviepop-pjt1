@@ -40,8 +40,10 @@
           <label for="formContent"> 본문 </label>
           {{ form.content }}
           <br>
-          {{ form.score }}
-          {{ form.image }}
+          <div class="d-flex justify-content-between">
+            {{ form.score }}
+            {{ form.image }}
+          </div>
           <input class="btn base-ivory" type="submit" id="hover">
           <a class="btn base-brightcrimson" href="{% url 'community:index' %}">back</a>
         </div>
