@@ -29,3 +29,7 @@ class User(AbstractUser):
     preference = MultiSelectField(choices = GENRES, verbose_name="선호하는 영화 장르")
     preference_code = models.CharField(max_length=20)
     nickname = models.CharField(max_length=10, verbose_name="닉네임")
+
+
+class Blog(models.Model):
+    text = models.TextField()

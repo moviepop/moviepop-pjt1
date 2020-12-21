@@ -180,3 +180,4 @@ def detail(request, user_pk):
         'article_user': article_user,
     }
     return render(request, 'accounts/detail.html', context)
+
