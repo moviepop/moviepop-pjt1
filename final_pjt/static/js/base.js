@@ -2,6 +2,7 @@ searchImgs = document.querySelectorAll('.search-img')
 searchBars = document.querySelectorAll('.search-bar')
 
 function showSearchBar() {
+  searchImgs.forEach(searchImg => searchImg.classList.toggle('d-none'))
   searchBars.forEach(searchBar => searchBar.classList.toggle('d-none'))
 
   // searchImg.setAttribute('class', 'd-none')
@@ -15,4 +16,4 @@ window.onkeydown = function(event) {
   }
 }
 
-searchImgs.forEach(searchImg => addEventListener('click', showSearchBar))
+searchImgs.forEach(searchImg => searchImg.addEventListener('click', showSearchBar))

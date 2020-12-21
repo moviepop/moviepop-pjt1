@@ -1,6 +1,12 @@
 const searchForm = document.getElementById('navSearchForm')
 searchForm.style.display = 'none';
 
+console.log('hi')
+
+const searchIcon = document.getElementById('navSearchIcon')
+console.log(searchIcon)
+searchIcon.style.display = 'none';
+
 const mouseOut = function() {
   const ment = document.getElementById('ment')
   ment.innerText = ""
