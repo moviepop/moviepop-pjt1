@@ -1,4 +1,4 @@
-<form action="" method="POST" class="accounts-form-width">
+<form action="" method="POST" class="accounts-form-width" enctype="multipart/form-data">
   {% csrf_token %}
 
   <hr class="accounts-hr-color">
@@ -54,4 +54,13 @@
     id="id_password2" 
     placeholder="최소 8자 이상"
   >
+  <hr class="accounts-hr-color">
+  <h4 class="font-weight-bold mr-5 inline-block">
+    프로필
+  </h4>
+  <span style="color: white">
+    {{ form.image }}
+  </span>
+  <br>
+  <br>
   <hr class="accounts-hr-color">

@@ -79,6 +79,15 @@
                 >
                   {{ user.nickname }}
                 </a>
+                {% if user.image %}
+                  <img 
+                    class="d-flex justify-content-center"
+                    src="{{ user.image.url }}" 
+                    alt="{{ user.image }}"
+                    width="50rem" 
+                    height="50rem" 
+                  >
+                {% endif %}
                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" style="background-color: rgba(17, 5, 2, 1);">
                   <!--드롭메뉴를 안내렸을 때 == 화면 크기가 클 때-->
                   <a class="nav-link base-nav-btn d-none d-lg-block" href="{% url 'movies:index' %}" style="font-size: 1.2rem;">영화 추천</a>

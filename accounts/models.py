@@ -2,6 +2,10 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 from multiselectfield import MultiSelectField
 
+from imagekit.models import ProcessedImageField
+from imagekit.processors import ResizeToFill
+from django.conf import settings
+
 # Create your models here.
 class User(AbstractUser):
     # preference = models.CharField(max_length=20)
@@ -29,3 +33,10 @@ class User(AbstractUser):
     preference = MultiSelectField(choices = GENRES, verbose_name="선호하는 영화 장르")
     preference_code = models.CharField(max_length=20)
     nickname = models.CharField(max_length=10, verbose_name="닉네임")
+    image = ProcessedImageField(
+                blank = True,
+                upload_to = 'profile/images',
+                processors = [ResizeToFill(300, 300)],
+                format = 'JPEG',
+                options = {'quality': 90},
+                )
