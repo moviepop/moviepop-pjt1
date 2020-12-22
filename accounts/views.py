@@ -181,3 +181,12 @@ def detail(request, user_pk):
     }
     return render(request, 'accounts/detail.html', context)
 
+
+def socialsignup(request):
+    print(request.user)
+    print(request)
+    user = request.user
+    context = {
+        'user': user,
+    }
+    return render(request, 'accounts/socialsignup.html', context)

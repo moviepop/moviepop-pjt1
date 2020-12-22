@@ -177,7 +177,7 @@ def update(request, pk):
     movie_genres = article.movie.genres.all()
     if request.user == article.user:
         if request.method == 'POST':
-            form = ArticleUpdateForm(request.POST, instance=article)
+            form = ArticleUpdateForm(request.POST, request.FILES, instance=article)
             if form.is_valid():
                 form.save()
                 # 새로운 리뷰 스코어, 사용자 선호코드
