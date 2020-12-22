@@ -18,12 +18,14 @@
       class="base-font accounts-form-width userdetail base-ivory"
     >
       <hr class="accounts-hr-color">
-      <img 
-        class="d-flex justify-content-center"
-        src="{{ user.image.url }}" 
-        alt="{{ user.image }}"
-        {% comment %} width="700rem"  {% endcomment %}
-      >
+      {% if user.image %}
+        <img 
+          class="d-flex justify-content-center"
+          src="{{ user.image.url }}" 
+          alt="{{ user.image }}"
+          {% comment %} width="700rem"  {% endcomment %}
+        >
+      {% endif %}
       <h4 class="ml-3">🌽{{ user.nickname }}님의 Corn Graph🌽</h4>
       <br>
       <p id="genreData" style="display: None;">{{ genre_code }}</p>

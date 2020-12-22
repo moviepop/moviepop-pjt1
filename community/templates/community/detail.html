@@ -25,13 +25,15 @@
       <div class="d-flex justify-content-between  align-items-center">
         <div>
           <span class="h4 base-title-font">작성자: 
-            <img 
-              class="m-0"
-              src="{{ user.image.url }}" 
-              alt="{{ user.image }}"
-              width="30rem" 
-              height="30rem" 
-            >
+            {% if article.user.image %}
+              <img 
+                class="m-0"
+                src="{{ article.user.image.url }}" 
+                alt="{{ article.user.image }}"
+                width="30rem" 
+                height="30rem" 
+              >
+            {% endif %}
             <a href="{% url 'accounts:detail' article.user.pk %}" class="atag">
               {{ article.user.nickname }}
             </a>

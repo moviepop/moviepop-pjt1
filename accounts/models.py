@@ -34,8 +34,9 @@ class User(AbstractUser):
     preference_code = models.CharField(max_length=20)
     nickname = models.CharField(max_length=10, verbose_name="닉네임")
     image = ProcessedImageField(
+                null = True,
                 blank = True,
-                upload_to = 'profile/images',
+                upload_to = 'profile/images/',
                 processors = [ResizeToFill(300, 300)],
                 format = 'JPEG',
                 options = {'quality': 90},

@@ -17,7 +17,7 @@
 
 <div class="accounts-form-width userdetail base-font base-ivory">
   <hr class="accounts-hr-color">
-  <form action="" method="POST">
+  <form action="" method="POST" enctype="multipart/form-data">
     {% csrf_token %}
     <h4 class="idnickname mr-4" style="width: 100px;"> My ID  </h4>
     <h4 class="idnickname" style="width: 200px; color: white;">{{ user.username }}</h4>
