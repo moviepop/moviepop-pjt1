@@ -28,10 +28,12 @@
     <h4 class="idnickname mr-4" style="width: 100px;">비밀번호</h4>
     <a href="../password/" class="h5 font-weight-bold atag">비밀번호 변경하기</a>
     <hr class="accounts-hr-color">
-    <h4 class="idnickname mr-4" style="width: 100px;"> 프로필  </h4>
-    <span style="color: white">
-      {{ form.image }}
-    </span>
+    <div class="d-flex align-items-center">
+      <h4 class="idnickname mr-4" style="width: 100px;"> 프로필 </h4>
+      <div class="d-inline-block" style="color: white">
+        {{ form.image }}
+      </div>
+    </div>
     <hr class="accounts-hr-color">
 
     <h5 class="font-weight-bold">선호하는 영화 장르</h5>
