@@ -39,9 +39,13 @@ def signup(request):
         return redirect('community:index')
 
     if request.method == 'POST':
-        form = CustomUserCreationForm(request.POST)
+        form = CustomUserCreationForm(request.POST, request.FILES)
         if form.is_valid():
             user = form.save()
+            print('~~~~~~~~~~~~~~~~')
+            print(form)
+            print('##################')
+            print(user.image)
             # 1. user.preference => 리스트 자료형
             pre_list = user.preference
             # 2. 리스트 자료형 => 선호도 문자열 코드로 변환
@@ -109,10 +113,13 @@ def update(request):
     if request.method == 'POST':
         # 1. 유저의 이전 선호도를 변수에 저장
         pre_pref = request.user.preference
-        form = CustomUserChangeForm(request.POST, instance=request.user)
+        form = CustomUserChangeForm(request.POST, request.FILES, instance=request.user)
+        print('################################')
         if form.is_valid():
             # 2. form에 새로 기입된 선호도가 user정보에 반영
             user = form.save()
+            print('------------------------')
+            print(user.image)
             # 3. user.preference는 새로반영된 선호도
             new_pref = user.preference
             pre_code = user.preference_code
