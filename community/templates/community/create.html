@@ -31,7 +31,7 @@
     <div class="col-7 half mt-3 mr-5 p-0">
       <h4>영화 | {{ movie.title }}</h4>
       <hr class="accounts-hr-color">
-      <form action="" method="POST">
+      <form action="" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         <div class="form-group" id="inputForm">
           <label for="formTitle"> 제목 </label>
@@ -40,7 +40,10 @@
           <label for="formContent"> 본문 </label>
           {{ form.content }}
           <br>
-          {{ form.score }}
+          <div class="d-flex justify-content-between">
+            {{ form.score }}
+            {{ form.image }}
+          </div>
           <input class="btn base-ivory" type="submit" id="hover">
           <a class="btn base-brightcrimson" href="{% url 'community:index' %}">back</a>
         </div>

@@ -1,5 +1,6 @@
 import random
 import requests
+import os
 from datetime import datetime
 
 from .models import Movie, Genre
@@ -48,6 +49,8 @@ def recommend_preference_algorithm(code):
     pref_list = []
 
     # 선호도 코드에서 장르 뽑아내는 알고리즘(선호장르 5개)
+    # 5개를 뽑는 이유는 평균적으로 영화가 2개정도의 장로가 혼합
+    # 10개 정도의 장르적 특징을 가지는 영화를 제공 (5 Combination 2)
     for cnt in range(9, 0, -1):
         for prefer in range(len(code)):
             if int(code[prefer]) == cnt:
@@ -172,13 +175,17 @@ def return_link(title, date):
     soup = BeautifulSoup(html, "html.parser")
     try:
         search_link = soup.find("div", class_="title_area")
-        detail_link = search_link.find("a")["href"]
-        req2 = requests.get(detail_link)
-        html2 = req2.text
-        soup2 = BeautifulSoup(html2, "html.parser")
-        overview = soup2.find("p", class_="con_tx")
+        try:
+            detail_link = search_link.find("a")["href"]
+            req2 = requests.get(detail_link)
+            html2 = req2.text
+            soup2 = BeautifulSoup(html2, "html.parser")
+            overview = soup2.find("p", class_="con_tx")
+            return overview
+        except:
+            overview = ''
+            return overview
 
-        return overview
 
     except AttributeError as e:
         url = BASE_URL + title
@@ -240,12 +247,26 @@ def detail(request, movie_id):
         link = ''
     else:
         link = return_link(movie.title, movie.release_date.year)
+    # API 요청
+    import requests
+    BASE_URL = 'https://www.googleapis.com/youtube/v3/search?'
+    API_KEY = os.environ.get('API_KEY')
+    REQUEST_URL = BASE_URL + 'part=snippet' + f'&key={API_KEY}' + f'&q=movie%20{movie.original_title}%20trailer'  
+    response = requests.get(REQUEST_URL)
+    response = response.json()
+    videoID = response["items"][0]["id"]["videoId"]
+    print(videoID)
+    
+
+    VIDEO_URL = 'www.youtube.com/embed/' + videoID
+    print(VIDEO_URL)
 
     articles = movie.article_set.all()
     context = {
         'movie': movie,
         'articles': articles,
         'link': link,
+        'VIDEO_URL': VIDEO_URL,
     }
     return render(request, 'movies/movie_detail.html', context)
 
