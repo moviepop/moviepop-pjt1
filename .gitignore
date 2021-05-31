@@ -259,4 +259,4 @@ $RECYCLE.BIN/
 
 # End of https://www.toptal.com/developers/gitignore/api/windows,venv,python,django,vscode
 
-final_pjt/settings/
+# final_pjt/settings/
