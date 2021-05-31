@@ -22,13 +22,31 @@
     <h1 class="base-title-font pt-3 pl-3 base-ivory">{{ article.title }}</h1>
     <hr>
     <div class="p-3 text-brown-color">
-      <div class="d-flex justify-content-between">
-        <div class="h4 base-title-font">작성자: <a href="{% url 'accounts:detail' article.user.pk %}" class="atag">{{ article.user.nickname }}</a></div>
+      <div class="d-flex justify-content-between  align-items-center">
         <div>
-          <div class="base-font">최초 작성일 {{ article.created_at|date:"Y년 M d일 H:i" }}</div>
-          <div class="base-font">최근 수정일 {{ article.updated_at|date:"Y년 M d일 H:i" }}</div>
+          <span class="h4 base-title-font">작성자: 
+            {% if article.user.image %}
+              <img 
+                class="m-0"
+                src="{{ article.user.image.url }}" 
+                alt="{{ article.user.image }}"
+                width="30rem" 
+                height="30rem" 
+              >
+            {% endif %}
+            <a href="{% url 'accounts:detail' article.user.pk %}" class="atag">
+              {{ article.user.nickname }}
+            </a>
+          </span>
+        </div>
+        <div>
+          <div>
+            <div class="base-font">최초 작성일 {{ article.created_at|date:"Y년 M d일 H:i" }}</div>
+            <div class="base-font">최근 수정일 {{ article.updated_at|date:"Y년 M d일 H:i" }}</div>
+          </div>
         </div>
       </div>
+      <br>
       <div class="h5 text-brown-color base-title-font">후기 | {{ score }}</div>
     <br>
 

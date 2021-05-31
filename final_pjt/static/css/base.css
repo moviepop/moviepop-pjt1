@@ -31,14 +31,14 @@
 }
 
 .base-nav-btn{
-  color: rgba(246, 75, 60, 1);
+  color: rgba(200, 25, 18, 1);
   background: none;
   border: none;
   padding-left: 0;
 }
 
-.base-nav-btn:hover {
-  color: rgba(253, 186, 154, 1);
+.base-nav-btn:hover{
+  color: rgb(255, 115, 100);
 }
 
 .accounts-hr-color{
