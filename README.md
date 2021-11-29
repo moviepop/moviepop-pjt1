@@ -104,7 +104,7 @@ final-pjt/
 
 #### 웹사이트, 연락처
 
-- https://final-pjt-movieapp.herokuapp.com/
+- https://movie-popcorn.herokuapp.com/
 - github: [Jo-Myounghee](https://github.com/Jo-Myounghee)
 - github: [AntBean94](https://github.com/AntBean94)
 
