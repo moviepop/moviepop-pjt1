@@ -1,5 +1,8 @@
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django.contrib.auth import get_user_model
+from allauth.socialaccount.forms import SignupForm
+from multiselectfield import MultiSelectField
+from django.db import models
 
 class CustomUserCreationForm(UserCreationForm):
 

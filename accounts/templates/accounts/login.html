@@ -12,6 +12,8 @@
 </head>
 
 {% block content %}
+{% load socialaccount %}
+{% providers_media_js %}
 
 <br>
 <br>
@@ -72,6 +74,9 @@
       <span>
         <span style="color: white;">아직 MoviePop 회원이 아니세요? </span>
         <a href="{% url 'accounts:signup' %}">회원가입하기</a>
+        <hr>
+        <a href="{% provider_login_url 'google' %}">구글 로그인</a>
+        <a href="{% provider_login_url 'naver' %}">네이버 로그인</a>
       </span>
     </div>
   </form>
